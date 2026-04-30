@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 
 :root {
-  --bg: #0b0c0d;
-  --bg-soft: #121416;
-  --panel: #0f1012;
+  --bg: #000000;
+  --bg-soft: #000000;
+  --panel: #000000;
   --text: #f7f7f7;
   --text-muted: #a6a8ac;
   --line: #2a2d31;
@@ -23,7 +23,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Space Grotesk', sans-serif;
-  background: radial-gradient(circle at 20% 0%, #181a1d 0%, var(--bg) 40%, #080909 100%);
+  background: #000000;
   color: var(--text);
 }
 
@@ -795,12 +795,12 @@ main,
 
 .skills-marquee::before {
   left: 0;
-  background: linear-gradient(90deg, #0b0c0d, rgba(11, 12, 13, 0));
+  background: linear-gradient(90deg, #000000, rgba(0, 0, 0, 0));
 }
 
 .skills-marquee::after {
   right: 0;
-  background: linear-gradient(270deg, #0b0c0d, rgba(11, 12, 13, 0));
+  background: linear-gradient(270deg, #000000, rgba(0, 0, 0, 0));
 }
 
 .skills-track {
@@ -1118,6 +1118,16 @@ main,
   .hero-role {
     font-size: clamp(0.96rem, 3.5vw, 1.1rem);
     line-height: 1.42;
+    margin-top: 0.62rem;
+  }
+
+  .hero-content-row {
+    margin-top: 0.18rem;
+  }
+
+  .hero-about {
+    margin-top: 0.38rem;
+    gap: 0.12rem;
   }
 
   .about-blurb {
