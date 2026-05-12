@@ -20,15 +20,22 @@ function App() {
 
   return (
     <div className="app">
+      {/* Violet scroll progress line */}
       <div className="scroll-progress-wrap" aria-hidden="true">
         <motion.div className="scroll-progress-bar" style={{ scaleX: smoothProgress }} />
       </div>
+
+      {/* Layered background effects */}
       <div className="ambient-gradient" aria-hidden="true" />
       <div className="grid-overlay" aria-hidden="true" />
       <div className="floating-orb orb-1" aria-hidden="true" />
       <div className="floating-orb orb-2" aria-hidden="true" />
       <div className="floating-orb orb-3" aria-hidden="true" />
+
+      {/* Fixed centered pill navbar */}
       <Navbar />
+
+      {/* Main content */}
       <main>
         <HeroSection />
         <ProjectsSection />

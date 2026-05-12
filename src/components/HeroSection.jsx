@@ -5,25 +5,28 @@ import { socialLinks } from '../data/portfolioData';
 
 function HeroSection() {
   return (
-    <section id="home" className="hero section container section-shell" data-section="01 / ABOUT">
-      <motion.div
-        className="hero-panel"
-        variants={fadeInUp}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="hero-layout">
-          <div className="hero-left">
-            <p className="hero-location">BASED IN MONTREAL</p>
-            <h1 className="hero-name">SAMY BAOUCHE</h1>
-            <p className="hero-role">
-              SWE @ Concordia University | DevOps & Cloud | Cloud Security | Full Stack
-            </p>
-          </div>
-        </div>
+    <section id="home" className="hero section container">
+      <div className="hero-inner">
 
-        <div className="hero-content-row">
-          <div className="hero-about">
+        {/* ── Text column ── */}
+        <motion.div
+          className="hero-text"
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+        >
+          <p className="hero-location">
+            <span className="hero-location-dot" aria-hidden="true" />
+            BASED IN MONTREAL
+          </p>
+
+          <h1 className="hero-name">SAMY<br />BAOUCHE</h1>
+
+          <p className="hero-role">
+            SWE @ Concordia University&nbsp;·&nbsp;DevOps &amp; Cloud&nbsp;·&nbsp;Cloud Security&nbsp;·&nbsp;Full Stack
+          </p>
+
+          <div className="hero-bio">
             <p className="about-blurb">
               Software Engineering student at Concordia University with a focus on cloud
               infrastructure, DevOps, and cloud security, building full stack systems to
@@ -44,7 +47,51 @@ function HeroSection() {
             </p>
           </div>
 
-          <div className="hero-visual hero-visual-lower">
+          <div className="hero-actions">
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href={socialLinks.github}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              <Github size={17} />
+              GitHub
+            </motion.a>
+
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-secondary"
+            >
+              <Linkedin size={17} />
+              LinkedIn
+            </motion.a>
+
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href={socialLinks.projects}
+              className="btn btn-ghost"
+            >
+              <ArrowRight size={17} />
+              View Projects
+            </motion.a>
+          </div>
+        </motion.div>
+
+        {/* ── Photo column ── */}
+        <motion.div
+          className="hero-photo"
+          initial={{ opacity: 0, x: 40, scale: 0.92 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="photo-glow-ring">
             <div className="profile-photo-frame">
               <img
                 src="/profile-photo.png"
@@ -53,48 +100,13 @@ function HeroSection() {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="hero-actions">
-          <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href={socialLinks.github}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary"
-          >
-            <Github size={18} />
-            GitHub
-          </motion.a>
+      </div>
 
-          <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href={socialLinks.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-secondary"
-          >
-            <Linkedin size={18} />
-            LinkedIn
-          </motion.a>
-
-          <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href={socialLinks.projects}
-            className="btn btn-ghost"
-          >
-            <ArrowRight size={18} />
-            View Projects
-          </motion.a>
-        </div>
-
-        <div className="scroll-dot" aria-hidden="true">
-          <span />
-        </div>
-      </motion.div>
+      <div className="scroll-dot" aria-hidden="true">
+        <span />
+      </div>
     </section>
   );
 }
