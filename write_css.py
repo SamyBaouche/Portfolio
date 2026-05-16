@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap');
+css = r"""@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap');
 
 /* ============================================================
    DESIGN TOKENS
@@ -49,6 +49,16 @@ img { display:block; max-width:100%; }
 ============================================================ */
 .app { position:relative; overflow-x:clip; }
 
+.scroll-progress-wrap {
+  position:fixed; top:0; left:0; width:100%; height:1px; z-index:300;
+  background:rgba(255,255,255,0.04);
+}
+.scroll-progress-bar {
+  height:100%; width:100%; transform-origin:left;
+  background:linear-gradient(90deg,var(--v-dark),var(--v),var(--v-bright));
+  box-shadow:0 0 8px rgba(139,92,246,0.8);
+}
+
 .ambient-gradient {
   position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
@@ -64,6 +74,21 @@ img { display:block; max-width:100%; }
   background-size:60px 60px;
   mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,black 10%,transparent 80%);
 }
+
+.floating-orb { position:fixed; border-radius:50%; filter:blur(110px); z-index:0; pointer-events:none; }
+.orb-1 {
+  width:500px; height:500px; top:-15%; left:-12%;
+  background:radial-gradient(circle,rgba(109,40,217,0.07),transparent 65%);
+  animation:orb1 18s ease-in-out infinite;
+}
+.orb-2 {
+  width:480px; height:480px; right:-14%; bottom:0%;
+  background:radial-gradient(circle,rgba(99,102,241,0.055),transparent 65%);
+  animation:orb2 22s ease-in-out infinite;
+}
+.orb-3 { display:none; }
+@keyframes orb1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-18px)} }
+@keyframes orb2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-28px,-16px)} }
 
 main { position:relative; z-index:2; }
 .container { width:min(1140px,91vw); margin-inline:auto; }
@@ -170,8 +195,11 @@ main { position:relative; z-index:2; }
 /* ============================================================
    HERO
 ============================================================ */
-.hero.section { padding-bottom: 5rem; }
-.hero-text { min-width: 0; max-width: 780px; }
+.hero-inner {
+  display:grid; grid-template-columns:1fr min(400px,40%);
+  gap:5rem; align-items:center;
+}
+.hero-text { min-width:0; }
 .hero-location {
   display:inline-flex; align-items:center; gap:8px;
   font-family:'Geist Mono',monospace; font-size:0.65rem; font-weight:500;
@@ -201,6 +229,36 @@ main { position:relative; z-index:2; }
 .hero-bio { display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
 .about-blurb { font-size:0.9rem; line-height:1.82; color:var(--text-muted); max-width:60ch; }
 .hero-actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+.hero-photo { display:flex; align-items:center; justify-content:center; }
+.photo-glow-ring { position:relative; width:100%; aspect-ratio:3/3.8; }
+.photo-glow-ring::before {
+  content:''; position:absolute; inset:-2px; border-radius:22px; z-index:-1;
+  background:linear-gradient(145deg,rgba(139,92,246,0.55),rgba(80,40,180,0.3),rgba(139,92,246,0.1),transparent 62%);
+  filter:blur(1px);
+}
+.photo-glow-ring::after {
+  content:''; position:absolute; inset:-30px; border-radius:28px; z-index:-2;
+  background:radial-gradient(ellipse at center,rgba(139,92,246,0.1) 0%,transparent 65%);
+  filter:blur(18px);
+}
+.profile-photo-frame {
+  width:100%; height:100%; border-radius:20px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08); background:var(--bg-3);
+  box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(0,0,0,0.5);
+}
+.profile-photo { width:100%; height:100%; object-fit:cover; object-position:center; }
+
+.scroll-dot { margin-top:5rem; display:grid; place-items:center; }
+.scroll-dot span {
+  display:block; width:1px; height:38px;
+  background:linear-gradient(180deg,var(--v),transparent);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%,100% { transform:scaleY(1); opacity:0.6; }
+  50%      { transform:scaleY(0.5); opacity:0.25; }
+}
 
 /* ============================================================
    BUTTONS
@@ -429,7 +487,7 @@ main { position:relative; z-index:2; }
 /* ============================================================
    CONTACT
 ============================================================ */
-.contact-wrap { padding-bottom:4rem; }
+.contact-wrap { padding-bottom:8rem; }
 .contact-card {
   border:1px solid var(--border); border-radius:var(--r-2xl);
   background:var(--bg-2); padding:clamp(2rem,5vw,3.5rem);
@@ -465,6 +523,10 @@ main { position:relative; z-index:2; }
 @media (max-width:1100px) {
   .project-main { grid-template-columns:1fr; gap:16px; }
 }
+@media (max-width:900px) {
+  .hero-inner { grid-template-columns:1fr; gap:3rem; }
+  .hero-photo { max-width:min(70vw,340px); margin:0 auto; width:100%; }
+}
 @media (max-width:768px) {
   .navbar-wrap { top:10px; }
   .navbar { min-width:0; border-radius:14px; padding:4px 5px; }
@@ -499,30 +561,8 @@ main { position:relative; z-index:2; }
   .contact-card:hover,.btn:hover,.chip:hover { transform:none !important; box-shadow:inherit !important; }
   .skills-track { animation-duration:60s; }
 }
+"""
 
-/* ============================================================
-   FOOTER
-============================================================ */
-.footer {
-  position:relative; z-index:2;
-  border-top:1px solid var(--border);
-  padding:2rem 0;
-}
-.footer-inner {
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
-}
-.footer-copy {
-  font-size:0.78rem; color:var(--text-muted); font-family:'Geist Mono',monospace;
-}
-.footer-links {
-  display:flex; align-items:center; gap:16px;
-}
-.footer-link {
-  font-size:0.78rem; color:var(--text-muted);
-  display:inline-flex; align-items:center; gap:6px;
-  transition:color 0.2s;
-}
-.footer-link:hover { color:var(--text-sub); }
-@media (max-width:540px) {
-  .footer-inner { justify-content:center; text-align:center; }
-}
+with open('/Users/samybaouche/Portfolio/src/App.css', 'w') as f:
+    f.write(css)
+print("App.css written:", len(css), "chars")

@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { skillCategories } from '../data/portfolioData';
-import { fadeInUp } from '../utils/animations';
 import {
   SiCanva,
   SiDjango,
@@ -107,18 +107,34 @@ const getSkillVisual = (skill) => {
   };
 };
 
+import { fadeUp, stagger, staggerFast, inViewOptions } from '../utils/motionVariants';
+
+const pillVariant = {
+  hidden: { opacity: 0, scale: 0.88 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+};
+
 function SkillsSection() {
+  const headerRef = useRef(null);
+  const bodyRef = useRef(null);
+  const headerInView = useInView(headerRef, inViewOptions);
+  const bodyInView = useInView(bodyRef, inViewOptions);
+
   const renderCategory = (title, items, groupClassName = '') => {
     return (
       <motion.div
+        key={title}
         className={`skills-group ${groupClassName}`.trim()}
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
       >
         <h4 className="skills-group-title">{title}</h4>
-        <div className="skills-category-grid">
+        <motion.div
+          className="skills-category-grid"
+          variants={staggerFast}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px 0px' }}
+        >
           {items.map((skill) => {
             const visual = getSkillVisual(skill);
             const Icon = visual?.icon;
@@ -127,34 +143,41 @@ function SkillsSection() {
               <motion.div
                 key={`${title}-${skill}`}
                 className="skill-pill"
-                whileHover={{ y: -2, scale: 1.015 }}
                 style={{ '--skill-color': visual?.color || '#ffffff' }}
+                variants={pillVariant}
               >
                 {Icon && <Icon className="skill-icon" aria-hidden="true" />}
                 <span>{skill}</span>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </motion.div>
     );
   };
 
   return (
-    <section id="skills" className="section container section-shell" data-section="03 / SKILLS">
+    <section id="skills" className="section container section-shell">
       <motion.div
+        ref={headerRef}
+        variants={stagger}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.25 }}
-        variants={fadeInUp}
+        animate={headerInView ? 'visible' : 'hidden'}
       >
-        <p className="eyebrow">Skills</p>
-        <h3 className="section-title">Technologies I Work With</h3>
+        <motion.p className="eyebrow" variants={fadeUp}>Skills</motion.p>
+        <motion.h3 className="section-title" variants={fadeUp}>Technologies I Work With</motion.h3>
       </motion.div>
 
-      {skillCategories.map((category, index) =>
-        renderCategory(category.title, category.items, index > 0 ? 'skills-group-secondary' : '')
-      )}
+      <motion.div
+        ref={bodyRef}
+        variants={stagger}
+        initial="hidden"
+        animate={bodyInView ? 'visible' : 'hidden'}
+      >
+        {skillCategories.map((category, index) =>
+          renderCategory(category.title, category.items, index > 0 ? 'skills-group-secondary' : '')
+        )}
+      </motion.div>
     </section>
   );
 }

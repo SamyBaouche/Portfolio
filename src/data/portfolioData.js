@@ -126,62 +126,28 @@ export const skills = [...languageFrameworkSkills, ...toolTechnologySkills];
 
 export const skillCategories = [
   {
-    title: '☁️ Cloud & Infrastructure',
-    items: ['AWS', 'Kubernetes', 'Terraform']
+    title: 'Languages',
+    items: ['Java', 'Go', 'Python', 'JavaScript', 'TypeScript', 'SQL', 'PowerShell']
   },
   {
-    title: '🐳 Containers & Dev Tools',
-    items: ['Docker', 'Windows Terminal', 'Bash']
+    title: 'Frameworks & Libraries',
+    items: ['Spring Boot', 'Node.js', 'Express.js', 'Django', 'FastAPI', 'React', 'JavaFX']
   },
   {
-    title: '⚙️ CI/CD & Version Control',
-    items: ['Git', 'GitHub', 'GitHub Actions']
+    title: 'Cloud & DevOps',
+    items: ['AWS', 'Kubernetes', 'Terraform', 'Docker', 'GitHub Actions']
   },
   {
-    title: '🖥️ Languages & Backend',
-    items: [
-      'Java',
-      'Spring Boot',
-      'Go',
-      'JavaScript',
-      'TypeScript',
-      'Node.js',
-      'Express.js',
-      'Django',
-      'FastAPI',
-      'PowerShell'
-    ]
-  },
-  {
-    title: '🗄️ Databases',
+    title: 'Databases',
     items: ['PostgreSQL', 'MySQL']
   },
   {
-    title: '🎨 Frontend & Design',
-    items: ['HTML5', 'CSS3', 'React', 'JavaFX', 'Figma', 'Canva']
+    title: 'Frontend & Design',
+    items: ['HTML5', 'CSS3', 'Figma', 'Canva']
   },
   {
-    title: '🔐 Auth & State',
-    items: ['JWT', 'Context API']
-  },
-  {
-    title: '💻 Operating Systems',
-    items: ['Windows', 'macOS']
-  },
-  {
-    title: '☁️ Cloud Tools',
-    items: ['AWS Console']
-  },
-  {
-    title: '🧰 IDEs & Development Tools',
-    items: [
-      'VS Code',
-      'IntelliJ',
-      'Eclipse',
-      'Postman',
-      'MySQL Workbench',
-      'DBeaver'
-    ]
+    title: 'Tools & IDEs',
+    items: ['Git', 'GitHub', 'Bash', 'Windows Terminal', 'VS Code', 'IntelliJ', 'Eclipse', 'Postman', 'DBeaver']
   }
 ];
 

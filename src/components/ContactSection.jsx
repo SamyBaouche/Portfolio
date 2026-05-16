@@ -1,54 +1,39 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { contact } from '../data/portfolioData';
-import { fadeInUp } from '../utils/animations';
+import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
 
 function ContactSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, inViewOptions);
   const emailLink = `mailto:${contact.email}?subject=${encodeURIComponent('Portfolio Contact')}&body=${encodeURIComponent('Hi Samy,\n\nI wanted to reach out regarding...')}`;
 
   return (
-    <section
-      id="contact"
-      className="section container section-shell contact-wrap"
-      data-section="05 / CONTACT"
-    >
+    <section id="contact" className="section container section-shell contact-wrap">
       <motion.div
+        ref={ref}
         className="contact-card glass"
+        variants={stagger}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInUp}
+        animate={isInView ? 'visible' : 'hidden'}
       >
-        <p className="eyebrow">Contact</p>
-        <h3 className="section-title">Let&apos;s Build Something Great</h3>
-        <a className="email-link" href={emailLink}>
+        <motion.p className="eyebrow" variants={fadeUp}>Contact</motion.p>
+        <motion.h3 className="section-title" variants={fadeUp}>Let&apos;s Build Something Great</motion.h3>
+
+        <motion.a className="email-link" href={emailLink} variants={fadeUp}>
           <Mail size={18} />
           {contact.email}
-        </a>
+        </motion.a>
 
-        <div className="contact-actions">
-          <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href={contact.github}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-secondary"
-          >
+        <motion.div className="contact-actions" variants={fadeUp}>
+          <a href={contact.github} target="_blank" rel="noreferrer" className="btn btn-secondary">
             <Github size={18} /> GitHub
-          </motion.a>
-
-          <motion.a
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href={contact.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary"
-          >
+          </a>
+          <a href={contact.linkedin} target="_blank" rel="noreferrer" className="btn btn-primary">
             <Linkedin size={18} /> LinkedIn
-          </motion.a>
-        </div>
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Github } from 'lucide-react';
 import {
   FaAws,
@@ -21,7 +22,7 @@ import {
   SiTypescript
 } from 'react-icons/si';
 import { projects } from '../data/portfolioData';
-import { fadeInUp, staggerContainer } from '../utils/animations';
+import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
 
 const projectTechVisuals = {
   Python: { icon: FaPython, color: '#3776ab' },
@@ -65,33 +66,35 @@ const getProjectThemeClass = (name) => {
 };
 
 function ProjectsSection() {
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
+  const headerInView = useInView(headerRef, inViewOptions);
+  const gridInView = useInView(gridRef, inViewOptions);
+
   return (
-    <section id="projects" className="section container section-shell" data-section="02 / PROJECTS">
+    <section id="projects" className="section container section-shell">
       <motion.div
+        ref={headerRef}
+        variants={stagger}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeInUp}
+        animate={headerInView ? 'visible' : 'hidden'}
       >
-        <p className="eyebrow">Projects</p>
-        <h3 className="section-title">Recent Work</h3>
+        <motion.p className="eyebrow" variants={fadeUp}>Projects</motion.p>
+        <motion.h3 className="section-title" variants={fadeUp}>Recent Work</motion.h3>
       </motion.div>
 
       <motion.div
+        ref={gridRef}
         className="project-grid"
-        variants={staggerContainer}
+        variants={stagger}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        animate={gridInView ? 'visible' : 'hidden'}
       >
         {projects.map((project, index) => (
           <motion.article
             key={project.name}
             className={`project-card glass ${getProjectThemeClass(project.name)}`.trim()}
-            variants={fadeInUp}
-            whileHover={{ y: -10, scale: 1.018, rotateX: 2.5, rotateY: -2.5 }}
-            whileTap={{ scale: 0.995 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            variants={fadeUp}
           >
             <div className="project-main">
               <div className="project-copy">
@@ -130,9 +133,7 @@ function ProjectsSection() {
                 </div>
 
                 <div className="project-actions">
-                  <motion.a
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                  <a
                     href={project.links.github}
                     className="btn btn-ghost"
                     target="_blank"
@@ -140,7 +141,7 @@ function ProjectsSection() {
                   >
                     <Github size={16} />
                     GitHub
-                  </motion.a>
+                  </a>
                 </div>
               </div>
             </div>
