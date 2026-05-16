@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { navLinks } from '../data/portfolioData';
+import { useTheme } from '../utils/useTheme';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,6 +10,7 @@ function Navbar() {
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRef = useRef(null);
   const linkRefs = useRef({});
+  const { theme, toggle } = useTheme();
 
   // Track active section via IntersectionObserver
   useEffect(() => {
@@ -83,6 +85,15 @@ function Navbar() {
             onClick={() => setOpen((prev) => !prev)}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+          {/* Theme toggle */}
+          <button
+            className="theme-toggle"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={toggle}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
           {/* Mobile brand */}

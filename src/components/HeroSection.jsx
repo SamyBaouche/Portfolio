@@ -25,6 +25,7 @@ function HeroSection() {
 
         <motion.h1 className="hero-name" variants={fadeUp}>
           SAMY<br />BAOUCHE
+          <span className="hero-code-tag" aria-hidden="true">&lt;/&gt;</span>
         </motion.h1>
 
         <motion.p className="hero-role" variants={fadeUp}>

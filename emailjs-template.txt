@@ -1,0 +1,23 @@
+────────────────────────────────────────────────
+  EMAILJS TEMPLATE — copie exactement ce contenu
+────────────────────────────────────────────────
+
+SUBJECT (ligne objet du template):
+  New message from {{from_name}} — Portfolio
+
+BODY (contenu du template):
+  You received a new message from your portfolio:
+
+  Name:    {{from_name}}
+  Email:   {{from_email}}
+
+  Message:
+  {{message}}
+
+  ────────────────────────
+  Reply to: {{from_email}}
+
+────────────────────────────────────────────────
+  "To email" field dans EmailJS → samy.baouche@gmail.com
+  "Reply To" field              → {{from_email}}
+────────────────────────────────────────────────

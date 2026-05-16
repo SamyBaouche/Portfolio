@@ -35,7 +35,11 @@ function ExperienceSection() {
           const Icon = iconMap[index] || Briefcase;
 
           return (
-            <motion.article key={item.title} className="experience-item glass" variants={fadeUp}>
+            <motion.article
+              key={item.title}
+              className={`experience-item glass${item.image ? ' experience-item-has-img' : ''}`}
+              variants={fadeUp}
+            >
               {item.link ? (
                 <a
                   className="experience-link"
@@ -45,18 +49,30 @@ function ExperienceSection() {
                   aria-label={`Open ${item.title}`}
                 >
                   <div className="experience-icon"><Icon size={20} /></div>
-                  <div>
+                  <div className="experience-body">
                     <h4>{item.title}</h4>
                     <p>{item.subtitle}</p>
                   </div>
+                  {item.image && (
+                    <div className="experience-img-wrap">
+                      <img src={item.image} alt={item.title} className="experience-img" />
+                      <div className="experience-img-overlay" aria-hidden="true" />
+                    </div>
+                  )}
                 </a>
               ) : (
                 <>
                   <div className="experience-icon"><Icon size={20} /></div>
-                  <div>
+                  <div className="experience-body">
                     <h4>{item.title}</h4>
                     <p>{item.subtitle}</p>
                   </div>
+                  {item.image && (
+                    <div className="experience-img-wrap">
+                      <img src={item.image} alt={item.title} className="experience-img" />
+                      <div className="experience-img-overlay" aria-hidden="true" />
+                    </div>
+                  )}
                 </>
               )}
             </motion.article>

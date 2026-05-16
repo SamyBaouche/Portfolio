@@ -16,6 +16,7 @@ export const projects = [
   {
     name: 'ZeroTrustCloud',
     description: 'Cloud Security Platform',
+    image: '/zerotrustcloud.png',
     stack: ['Spring Boot', 'React', 'TypeScript', 'PostgreSQL', 'Docker', 'AWS'],
     features: [
       'Engineered a full-stack Zero Trust cloud security platform simulating real-time access control decisions using contextual risk scoring',
@@ -63,6 +64,7 @@ export const projects = [
   {
     name: 'Invasion Agricole',
     description: '2D arcade game',
+    image: '/agricole.png',
     stack: ['Java', 'JavaFX'],
     features: [
       '60 FPS physics engine',
@@ -155,6 +157,7 @@ export const experience = [
   {
     title: '1st Place @HACK 2026 Cybersecurity CTF',
     subtitle: 'Interac Beginner category',
+    image: '/hackathon.png',
     link: 'https://www.linkedin.com/posts/samy-baouche-611178246_athack2026-cybersecurity-ctf-activity-7437992668074438657-1hRV?utm_source=share&utm_medium=member_desktop&rcm=ACoAADzknG0BnldHeznjVcXUbewhbcJeoFRtnDk'
   }
 ];
