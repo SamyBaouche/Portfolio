@@ -432,14 +432,15 @@ main { position:relative; z-index:2; }
   flex: 1; min-width: 0;
 }
 
-/* Screenshot column */
+/* Screenshot column — fixed size, same for all cards */
 .pc-screenshot-wrap {
   flex-shrink: 0;
-  width: clamp(260px, 42%, 520px);
+  width: 420px;
+  height: 280px;
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  align-self: stretch;
+  align-self: center;
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent),
     0 16px 48px rgba(0,0,0,0.55),
