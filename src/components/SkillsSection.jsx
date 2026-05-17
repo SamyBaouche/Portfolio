@@ -53,59 +53,51 @@ import {
 } from 'react-icons/fa6';
 
 const skillVisuals = {
-  Java:              { icon: FaJava,           color: '#f89820', desc: 'Langage orienté objet robuste, idéal pour les applications d\'entreprise et les backends scalables.' },
-  'Spring Boot':     { icon: SiSpringboot,     color: '#6db33f', desc: 'Framework Java pour construire des APIs REST et microservices production-ready rapidement.' },
-  Go:                { icon: FaGolang,         color: '#00add8', desc: 'Langage compilé de Google, ultra-rapide et concurrent, parfait pour les services cloud.' },
-  JavaScript:        { icon: SiJavascript,     color: '#f7df1e', desc: 'Le langage du web — rend les pages interactives côté client et serveur via Node.js.' },
-  TypeScript:        { icon: SiTypescript,     color: '#3178c6', desc: 'Superset typé de JavaScript qui réduit les bugs et améliore la maintenabilité du code.' },
-  'Node.js':         { icon: FaNodeJs,         color: '#5fa04e', desc: 'Runtime JavaScript côté serveur basé sur V8, idéal pour les APIs et apps temps réel.' },
-  'Express.js':      { icon: SiExpress,        color: '#e6edf3', desc: 'Framework minimaliste Node.js pour construire des APIs REST rapidement et simplement.' },
-  Django:            { icon: SiDjango,         color: '#44b78b', desc: 'Framework Python "batteries incluses" pour développer des apps web sécurisées rapidement.' },
-  FastAPI:           { icon: SiFastapi,        color: '#009688', desc: 'Framework Python moderne et ultra-rapide pour créer des APIs, avec validation automatique.' },
-  PowerShell:        { icon: SiPowers,         color: '#5391fe', desc: 'Shell et langage de script Microsoft pour l\'automatisation système et la gestion Windows/Azure.' },
-  PostgreSQL:        { icon: SiPostgresql,     color: '#336791', desc: 'Base de données relationnelle open-source avancée, fiable et extensible.' },
-  MySQL:             { icon: SiMysql,          color: '#4479a1', desc: 'SGBD relationnel populaire, rapide et facile à déployer pour la plupart des applications web.' },
-  HTML5:             { icon: FaHtml5,          color: '#e34f26', desc: 'Langage de balisage du web — structure le contenu de toutes les pages web modernes.' },
-  CSS3:              { icon: FaCss3,           color: '#1572b6', desc: 'Feuilles de style en cascade — contrôle le design, les animations et la mise en page des sites.' },
-  React:             { icon: FaReact,          color: '#61dafb', desc: 'Bibliothèque UI JavaScript de Meta pour construire des interfaces déclaratives et réactives.' },
-  JavaFX:            { icon: FaJava,           color: '#f89820', desc: 'Plateforme Java pour créer des interfaces graphiques de bureau riches et modernes.' },
-  Figma:             { icon: FaFigma,          color: '#f24e1e', desc: 'Outil de design UI/UX collaboratif basé sur le cloud, standard de l\'industrie.' },
-  Canva:             { icon: SiCanva,          color: '#00c4cc', desc: 'Outil de design graphique en ligne, idéal pour créer visuels et présentations rapidement.' },
-  JWT:               { icon: SiJsonwebtokens,  color: '#f5f5f5', desc: 'JSON Web Tokens — standard sécurisé pour l\'authentification et l\'échange de données signé.' },
-  'Context API':     { icon: SiReact,          color: '#61dafb', desc: 'Système natif React pour partager l\'état global entre composants sans bibliothèque externe.' },
-  AWS:               { icon: FaAws,            color: '#ff9900', desc: 'Amazon Web Services — plateforme cloud leader mondial avec +200 services (EC2, S3, RDS…).' },
-  Kubernetes:        { icon: SiKubernetes,     color: '#326ce5', desc: 'Orchestrateur de conteneurs open-source pour déployer, scaler et gérer des apps en production.' },
-  Terraform:         { icon: SiTerraform,      color: '#844fba', desc: 'Outil d\'Infrastructure as Code (IaC) pour provisionner le cloud de façon reproductible.' },
-  Docker:            { icon: FaDocker,         color: '#2496ed', desc: 'Plateforme de conteneurisation qui package les apps et leurs dépendances en images portables.' },
-  'Windows Terminal':{ icon: FaTerminal,       color: '#00a4ef', desc: 'Terminal moderne Microsoft supportant PowerShell, CMD et WSL dans un seul outil.' },
-  Bash:              { icon: SiGnubash,        color: '#4eaa25', desc: 'Shell Unix standard pour l\'automatisation, les scripts et l\'administration de systèmes Linux.' },
-  Git:               { icon: FaGit,            color: '#f05032', desc: 'Système de contrôle de version distribué — essentiel pour tout projet logiciel collaboratif.' },
-  GitHub:            { icon: FaGithub,         color: '#ffffff', desc: 'Plateforme d\'hébergement Git avec outils de collaboration, CI/CD et review de code.' },
-  'GitHub Actions':  { icon: SiGithubactions,  color: '#2088ff', desc: 'Plateforme CI/CD intégrée à GitHub pour automatiser tests, builds et déploiements.' },
-  Windows:           { icon: FaWindows,        color: '#00a4ef', desc: 'Système d\'exploitation Microsoft, environnement de développement courant et bien outillé.' },
-  macOS:             { icon: FaApple,          color: '#f2f2f2', desc: 'OS Apple basé sur Unix, très populaire chez les développeurs pour sa stabilité et ses outils.' },
-  'AWS Console':     { icon: FaAws,            color: '#ff9900', desc: 'Interface web AWS pour gérer visuellement l\'ensemble des services cloud Amazon.' },
-  'VS Code':         { icon: FaCode,           color: '#007acc', desc: 'Éditeur de code léger et puissant de Microsoft, avec extensions pour tous les langages.' },
-  IntelliJ:          { icon: SiIntellijidea,   color: '#f3f3f3', desc: 'IDE JetBrains ultra-complet pour Java/Kotlin, avec refactoring intelligent et débogage avancé.' },
-  Eclipse:           { icon: SiEclipseide,     color: '#5c2d91', desc: 'IDE open-source Java historique, extensible via plugins pour divers langages et frameworks.' },
-  Postman:           { icon: SiPostman,        color: '#ff6c37', desc: 'Outil de test et documentation d\'APIs REST/GraphQL, incontournable pour les développeurs backend.' },
-  'MySQL Workbench': { icon: FaDatabase,       color: '#4479a1', desc: 'GUI officielle MySQL pour concevoir, administrer et interroger des bases de données visuellement.' },
-  DBeaver:           { icon: SiDbeaver,        color: '#5e9f42', desc: 'Client universel de base de données multi-SGBD (PostgreSQL, MySQL, SQLite…) open-source.' },
-  SQL:               { icon: SiPostgresql,     color: '#4169e1', desc: 'Langage de requête structurée — standard universel pour interroger et manipuler des bases de données.' },
-  Python:            { icon: SiPython,         color: '#3776ab', desc: 'Langage polyvalent et lisible, dominant en data science, IA, automatisation et web backend.' },
-  'Git/GitHub':      { icon: SiGithub,         color: '#ffffff', desc: 'Combo versionning + hébergement — la colonne vertébrale du travail collaboratif en développement.' },
+  Java:              { icon: FaJava,           color: '#f89820', desc: 'Object-oriented language built for enterprise apps and scalable backends.' },
+  'Spring Boot':     { icon: SiSpringboot,     color: '#6db33f', desc: 'Java framework for building production-ready REST APIs and microservices fast.' },
+  Go:                { icon: FaGolang,         color: '#00add8', desc: 'Compiled, concurrent language by Google — blazing fast and built for cloud services.' },
+  JavaScript:        { icon: SiJavascript,     color: '#f7df1e', desc: 'The language of the web — powers interactive UIs and server-side logic via Node.js.' },
+  TypeScript:        { icon: SiTypescript,     color: '#3178c6', desc: 'Typed superset of JavaScript that catches bugs early and improves code maintainability.' },
+  'Node.js':         { icon: FaNodeJs,         color: '#5fa04e', desc: 'JavaScript runtime built on V8 — ideal for APIs, real-time apps and microservices.' },
+  'Express.js':      { icon: SiExpress,        color: '#e6edf3', desc: 'Minimal Node.js framework for building REST APIs quickly and without boilerplate.' },
+  Django:            { icon: SiDjango,         color: '#44b78b', desc: '"Batteries included" Python framework for secure, scalable web apps.' },
+  FastAPI:           { icon: SiFastapi,        color: '#009688', desc: 'Modern Python framework for blazing-fast APIs with automatic validation.' },
+  PowerShell:        { icon: SiPowers,         color: '#5391fe', desc: 'Microsoft scripting shell for automating system tasks and managing Windows/Azure.' },
+  PostgreSQL:        { icon: SiPostgresql,     color: '#336791', desc: 'Advanced open-source relational database — reliable, feature-rich and extensible.' },
+  MySQL:             { icon: SiMysql,          color: '#4479a1', desc: 'Popular relational DBMS — fast and easy to deploy for most web applications.' },
+  HTML5:             { icon: FaHtml5,          color: '#e34f26', desc: 'Markup language of the web — structures the content of every modern web page.' },
+  CSS3:              { icon: FaCss3,           color: '#1572b6', desc: 'Cascading stylesheets — controls layout, animations and visual design on the web.' },
+  React:             { icon: FaReact,          color: '#61dafb', desc: 'Meta\'s UI library for building declarative, component-based web interfaces.' },
+  JavaFX:            { icon: FaJava,           color: '#f89820', desc: 'Java platform for building rich, modern desktop graphical user interfaces.' },
+  Figma:             { icon: FaFigma,          color: '#f24e1e', desc: 'Cloud-based collaborative UI/UX design tool — the industry standard.' },
+  Canva:             { icon: SiCanva,          color: '#00c4cc', desc: 'Online graphic design tool for creating visuals and presentations quickly.' },
+  JWT:               { icon: SiJsonwebtokens,  color: '#f5f5f5', desc: 'Secure standard for authentication and signed data exchange between services.' },
+  'Context API':     { icon: SiReact,          color: '#61dafb', desc: 'React\'s built-in system for sharing global state between components.' },
+  AWS:               { icon: FaAws,            color: '#ff9900', desc: 'World-leading cloud platform with 200+ services including EC2, S3 and RDS.' },
+  Kubernetes:        { icon: SiKubernetes,     color: '#326ce5', desc: 'Container orchestration system for deploying and scaling apps in production.' },
+  Terraform:         { icon: SiTerraform,      color: '#844fba', desc: 'Infrastructure as Code tool to provision cloud resources reproducibly.' },
+  Docker:            { icon: FaDocker,         color: '#2496ed', desc: 'Containerization platform that packages apps and dependencies into portable images.' },
+  'Windows Terminal':{ icon: FaTerminal,       color: '#00a4ef', desc: 'Modern Microsoft terminal supporting PowerShell, CMD and WSL in one place.' },
+  Bash:              { icon: SiGnubash,        color: '#4eaa25', desc: 'Standard Unix shell for automation, scripting and Linux system administration.' },
+  Git:               { icon: FaGit,            color: '#f05032', desc: 'Distributed version control system — essential for any collaborative software project.' },
+  GitHub:            { icon: FaGithub,         color: '#ffffff', desc: 'Git hosting platform with collaboration tools, CI/CD pipelines and code review.' },
+  'GitHub Actions':  { icon: SiGithubactions,  color: '#2088ff', desc: 'GitHub\'s built-in CI/CD platform to automate tests, builds and deployments.' },
+  Windows:           { icon: FaWindows,        color: '#00a4ef', desc: 'Microsoft OS — a common and well-tooled development environment.' },
+  macOS:             { icon: FaApple,          color: '#f2f2f2', desc: 'Apple\'s Unix-based OS — popular among developers for its stability and tooling.' },
+  'AWS Console':     { icon: FaAws,            color: '#ff9900', desc: 'Web interface to visually manage all Amazon cloud services.' },
+  'VS Code':         { icon: FaCode,           color: '#007acc', desc: 'Lightweight yet powerful code editor by Microsoft, with extensions for every language.' },
+  IntelliJ:          { icon: SiIntellijidea,   color: '#f3f3f3', desc: 'JetBrains IDE for Java/Kotlin with smart refactoring and advanced debugging.' },
+  Eclipse:           { icon: SiEclipseide,     color: '#5c2d91', desc: 'Open-source Java IDE, extensible via plugins for many languages and frameworks.' },
+  Postman:           { icon: SiPostman,        color: '#ff6c37', desc: 'API testing and documentation tool — a must-have for backend developers.' },
+  'MySQL Workbench': { icon: FaDatabase,       color: '#4479a1', desc: 'Official MySQL GUI for designing, administering and querying databases visually.' },
+  DBeaver:           { icon: SiDbeaver,        color: '#5e9f42', desc: 'Universal open-source DB client supporting PostgreSQL, MySQL, SQLite and more.' },
+  SQL:               { icon: SiPostgresql,     color: '#4169e1', desc: 'Structured Query Language — the universal standard for querying and managing databases.' },
+  Python:            { icon: SiPython,         color: '#3776ab', desc: 'Versatile, readable language dominating data science, AI, automation and web backends.' },
+  'Git/GitHub':      { icon: SiGithub,         color: '#ffffff', desc: 'Version control + hosting combo — the backbone of collaborative software development.' },
 };
 
-const getSkillVisual = (skill) => {
-  if (skillVisuals[skill]) {
-    return skillVisuals[skill];
-  }
-
-  return {
-    icon: FaScrewdriverWrench,
-    color: '#8ac6ff'
-  };
-};
+const getSkillVisual = (skill) =>
+  skillVisuals[skill] ?? { icon: FaScrewdriverWrench, color: '#8ac6ff', desc: '' };
 
 import { fadeUp, stagger, staggerFast, inViewOptions } from '../utils/motionVariants';
 

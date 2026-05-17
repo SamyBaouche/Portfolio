@@ -650,7 +650,7 @@ main { position:relative; z-index:2; }
 /* ── Skill tooltip ─────────────────────────────────────────────────── */
 .skill-tooltip {
   position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%);
-  z-index:999; width:220px; pointer-events:none;
+  z-index:999; width:260px; pointer-events:none;
   background:var(--bg-3);
   border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
   border-radius:14px;
