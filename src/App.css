@@ -625,7 +625,7 @@ main { position:relative; z-index:2; }
 }
 .skills-category-grid { display:flex; flex-wrap:wrap; gap:8px; }
 .skill-pill {
-  position:relative; overflow:hidden;
+  position:relative;
   display:inline-flex; align-items:center; gap:8px;
   border:1px solid var(--border); background:var(--bg-2);
   color:var(--text-sub); border-radius:var(--r-md); padding:8px 14px;
@@ -633,9 +633,9 @@ main { position:relative; z-index:2; }
   transition:border-color 0.25s,color 0.25s,background 0.25s,transform 0.25s,box-shadow 0.25s;
 }
 .skill-pill::after {
-  content:''; position:absolute; inset:0;
+  content:''; position:absolute; inset:0; border-radius:var(--r-md);
   background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,0.05),transparent 80%);
-  transform:translateX(-140%); transition:transform 0.5s; pointer-events:none;
+  transform:translateX(-140%); transition:transform 0.5s; pointer-events:none; overflow:hidden;
 }
 .skill-pill:hover::after { transform:translateX(130%); }
 .skill-pill:hover {
@@ -646,6 +646,54 @@ main { position:relative; z-index:2; }
   box-shadow:0 0 14px color-mix(in oklab,var(--skill-color) 14%,transparent),0 6px 20px rgba(0,0,0,0.35);
 }
 .skill-icon { color:var(--skill-color); font-size:1rem; }
+
+/* ── Skill tooltip ─────────────────────────────────────────────────── */
+.skill-tooltip {
+  position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%);
+  z-index:999; width:220px; pointer-events:none;
+  background:var(--bg-3);
+  border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
+  border-radius:14px;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.2),
+    0 8px 32px rgba(0,0,0,0.45),
+    0 0 28px color-mix(in oklab,var(--tip-color,var(--v)) 12%,transparent);
+  padding:14px;
+  display:flex; gap:12px; align-items:flex-start;
+  overflow:visible;
+}
+.skill-tooltip::after {
+  content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  border:6px solid transparent;
+  border-top-color:color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
+}
+.skill-tooltip-icon-wrap {
+  flex-shrink:0;
+  width:36px; height:36px; border-radius:10px;
+  background:color-mix(in oklab,var(--tip-color) 15%,var(--bg-4));
+  border:1px solid color-mix(in oklab,var(--tip-color) 30%,transparent);
+  display:flex; align-items:center; justify-content:center;
+}
+.skill-tooltip-icon {
+  font-size:1.15rem;
+  color:var(--tip-color);
+  filter:drop-shadow(0 0 6px var(--tip-color));
+}
+.skill-tooltip-body { flex:1; min-width:0; }
+.skill-tooltip-name {
+  display:block; font-family:'Geist Mono',monospace; font-size:0.78rem; font-weight:600;
+  color:var(--text); margin-bottom:5px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.skill-tooltip-desc {
+  margin:0; font-size:0.72rem; line-height:1.5;
+  color:var(--text-sub);
+}
+[data-theme="light"] .skill-tooltip {
+  background:var(--bg-2);
+  box-shadow:0 8px 32px rgba(0,0,0,0.18),0 0 24px color-mix(in oklab,var(--tip-color,var(--v)) 10%,transparent);
+}
+
 
 .skills-marquee {
   margin-top:2.5rem; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
