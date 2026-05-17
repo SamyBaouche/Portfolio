@@ -655,7 +655,6 @@ main { position:relative; z-index:2; }
 
 /* ── Skill tooltip (portaled into document.body) ──────────────────── */
 .skill-tooltip {
-  position:absolute;
   z-index:9999; width:260px; pointer-events:none;
   background:var(--bg-3);
   border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 30%,var(--border));
