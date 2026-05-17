@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { skillCategories } from '../data/portfolioData';
@@ -108,9 +108,9 @@ const pillVariant = {
 };
 
 const tooltipVariant = {
-  hidden:  { opacity: 0, y: 8, scale: 0.94 },
-  visible: { opacity: 1, y: 0, scale: 1,   transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, y: 6, scale: 0.94, transition: { duration: 0.15 } },
+  hidden:  { opacity: 0, scale: 0.92 },
+  visible: { opacity: 1, scale: 1,    transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { opacity: 0, scale: 0.92, transition: { duration: 0.12 } },
 };
 
 function SkillPill({ skill }) {
@@ -120,16 +120,29 @@ function SkillPill({ skill }) {
   const [hovered, setHovered] = useState(false);
   const [tipPos,  setTipPos]  = useState({ top: 0, left: 0 });
 
-  const handleEnter = () => {
-    if (pillRef.current) {
-      const r = pillRef.current.getBoundingClientRect();
-      setTipPos({
-        top:  r.top - 10,                  // viewport-relative: just above pill
-        left: r.left + r.width / 2,        // viewport-relative: centred
-      });
-    }
-    setHovered(true);
+  const calcPos = () => {
+    if (!pillRef.current) return;
+    const r   = pillRef.current.getBoundingClientRect();
+    const TIP = 260; // tooltip width in px
+    // Clamp left so tooltip stays inside viewport
+    const rawLeft = r.left + r.width / 2;
+    const left    = Math.min(Math.max(rawLeft, TIP / 2 + 8), window.innerWidth - TIP / 2 - 8);
+    setTipPos({ top: r.top - 10, left });
   };
+
+  const handleEnter = () => { calcPos(); setHovered(true); };
+  const handleLeave = () => setHovered(false);
+
+  // Keep position accurate while hovered
+  useEffect(() => {
+    if (!hovered) return;
+    window.addEventListener('scroll', calcPos, true);
+    window.addEventListener('resize', calcPos);
+    return () => {
+      window.removeEventListener('scroll', calcPos, true);
+      window.removeEventListener('resize', calcPos);
+    };
+  }, [hovered]);
 
   return (
     <>
@@ -139,7 +152,7 @@ function SkillPill({ skill }) {
         style={{ '--skill-color': visual?.color || '#ffffff' }}
         variants={pillVariant}
         onMouseEnter={handleEnter}
-        onMouseLeave={() => setHovered(false)}
+        onMouseLeave={handleLeave}
       >
         <span className="skill-pill-shimmer" aria-hidden="true" />
         {Icon && <Icon className="skill-icon" aria-hidden="true" />}
@@ -149,30 +162,36 @@ function SkillPill({ skill }) {
       {createPortal(
         <AnimatePresence>
           {hovered && visual?.desc && (
-            <motion.div
-              className="skill-tooltip"
+            /* Outer div: handles fixed positioning — no Framer interference */
+            <div
               style={{
-                '--tip-color': visual.color,
                 position: 'fixed',
                 top:  tipPos.top,
                 left: tipPos.left,
                 transform: 'translate(-50%, -100%)',
                 zIndex: 9999,
+                pointerEvents: 'none',
               }}
-              variants={tooltipVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              role="tooltip"
             >
-              <div className="skill-tooltip-icon-wrap">
-                {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
-              </div>
-              <div className="skill-tooltip-body">
-                <span className="skill-tooltip-name">{skill}</span>
-                <p className="skill-tooltip-desc">{visual.desc}</p>
-              </div>
-            </motion.div>
+              {/* Inner motion.div: handles only opacity/scale animation */}
+              <motion.div
+                className="skill-tooltip"
+                style={{ '--tip-color': visual.color }}
+                variants={tooltipVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                role="tooltip"
+              >
+                <div className="skill-tooltip-icon-wrap">
+                  {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
+                </div>
+                <div className="skill-tooltip-body">
+                  <span className="skill-tooltip-name">{skill}</span>
+                  <p className="skill-tooltip-desc">{visual.desc}</p>
+                </div>
+              </motion.div>
+            </div>
           )}
         </AnimatePresence>,
         document.body
