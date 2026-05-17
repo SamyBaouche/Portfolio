@@ -344,12 +344,11 @@ main { position:relative; z-index:2; }
 ============================================================ */
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1.25rem;
 }
-/* 1st and last cards span full width → bento layout */
-.project-grid > .project-card:nth-child(1),
-.project-grid > .project-card:last-child {
+/* All cards span full width */
+.project-grid > .project-card {
   grid-column: 1 / -1;
 }
 
