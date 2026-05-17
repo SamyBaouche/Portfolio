@@ -33,6 +33,7 @@ export const projects = [
   {
     name: 'CourseFlow',
     description: 'Student dashboard web platform',
+    image: '/landing.png',
     stack: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'SQL'],
     features: [
       'Course management',
