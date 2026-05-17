@@ -653,25 +653,26 @@ main { position:relative; z-index:2; }
 .skill-icon { color:var(--skill-color); font-size:1rem; position:relative; z-index:1; }
 .skill-pill > span:not(.skill-pill-shimmer) { position:relative; z-index:1; }
 
-/* ── Skill tooltip ─────────────────────────────────────────────────── */
+/* ── Skill tooltip (portaled into document.body) ──────────────────── */
 .skill-tooltip {
-  position:absolute; top:calc(100% + 10px); left:50%; transform:translateX(-50%);
+  position:absolute;
   z-index:9999; width:260px; pointer-events:none;
   background:var(--bg-3);
-  border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
+  border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 30%,var(--border));
   border-radius:14px;
   box-shadow:
     0 0 0 1px rgba(0,0,0,0.2),
-    0 8px 32px rgba(0,0,0,0.45),
-    0 0 28px color-mix(in oklab,var(--tip-color,var(--v)) 12%,transparent);
+    0 8px 32px rgba(0,0,0,0.5),
+    0 0 28px color-mix(in oklab,var(--tip-color,var(--v)) 14%,transparent);
   padding:14px;
   display:flex; gap:12px; align-items:flex-start;
 }
-/* Arrow pointing UP (tooltip is below the pill) */
+/* Arrow pointing down toward the pill */
 .skill-tooltip::after {
-  content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%);
-  border:6px solid transparent;
-  border-bottom-color:color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
+  content:''; position:absolute;
+  top:100%; left:50%; transform:translateX(-50%);
+  border:7px solid transparent;
+  border-top-color:color-mix(in oklab,var(--tip-color,var(--v)) 30%,var(--border));
 }
 .skill-tooltip-icon-wrap {
   flex-shrink:0;

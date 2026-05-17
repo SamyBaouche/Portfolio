@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { skillCategories } from '../data/portfolioData';
 import {
@@ -113,63 +114,69 @@ const tooltipVariant = {
 };
 
 function SkillPill({ skill }) {
-  const visual = getSkillVisual(skill);
-  const Icon = visual?.icon;
-  const [hovered, setHovered] = useState(false);
-  const [tipPos, setTipPos]   = useState({ top: 0, left: 0 });
+  const visual  = getSkillVisual(skill);
+  const Icon    = visual?.icon;
   const pillRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const [tipPos,  setTipPos]  = useState({ top: 0, left: 0 });
 
   const handleEnter = () => {
     if (pillRef.current) {
-      const rect = pillRef.current.getBoundingClientRect();
+      const r = pillRef.current.getBoundingClientRect();
+      // Position above the pill, centred horizontally, accounting for scroll
       setTipPos({
-        top:  rect.top  - 12,
-        left: rect.left + rect.width / 2,
+        top:  r.top  + window.scrollY - 12,   // 12px gap above pill
+        left: r.left + window.scrollX + r.width / 2,
       });
     }
     setHovered(true);
   };
 
-  return (
-    <motion.div
-      ref={pillRef}
-      className="skill-pill"
-      style={{ '--skill-color': visual?.color || '#ffffff' }}
-      variants={pillVariant}
-      onMouseEnter={handleEnter}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <span className="skill-pill-shimmer" aria-hidden="true" />
-      {Icon && <Icon className="skill-icon" aria-hidden="true" />}
-      <span>{skill}</span>
+  const tooltip = hovered && visual?.desc && createPortal(
+    <AnimatePresence>
+      <motion.div
+        className="skill-tooltip"
+        style={{
+          '--tip-color': visual.color,
+          position: 'absolute',
+          top:  tipPos.top,
+          left: tipPos.left,
+          transform: 'translate(-50%, -100%)',
+        }}
+        variants={tooltipVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        role="tooltip"
+      >
+        <div className="skill-tooltip-icon-wrap">
+          {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
+        </div>
+        <div className="skill-tooltip-body">
+          <span className="skill-tooltip-name">{skill}</span>
+          <p className="skill-tooltip-desc">{visual.desc}</p>
+        </div>
+      </motion.div>
+    </AnimatePresence>,
+    document.body
+  );
 
-      <AnimatePresence>
-        {hovered && visual?.desc && (
-          <motion.div
-            className="skill-tooltip"
-            style={{
-              '--tip-color': visual.color,
-              top:  tipPos.top,
-              left: tipPos.left,
-              transform: 'translate(-50%, -100%)',
-            }}
-            variants={tooltipVariant}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            role="tooltip"
-          >
-            <div className="skill-tooltip-icon-wrap">
-              {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
-            </div>
-            <div className="skill-tooltip-body">
-              <span className="skill-tooltip-name">{skill}</span>
-              <p className="skill-tooltip-desc">{visual.desc}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+  return (
+    <>
+      <motion.div
+        ref={pillRef}
+        className="skill-pill"
+        style={{ '--skill-color': visual?.color || '#ffffff' }}
+        variants={pillVariant}
+        onMouseEnter={handleEnter}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <span className="skill-pill-shimmer" aria-hidden="true" />
+        {Icon && <Icon className="skill-icon" aria-hidden="true" />}
+        <span>{skill}</span>
+      </motion.div>
+      {tooltip}
+    </>
   );
 }
 
