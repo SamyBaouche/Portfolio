@@ -1,6 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useInView,
+} from "framer-motion";
 import { skillCategories } from '../data/portfolioData';
 import {
   SiCanva,
@@ -52,6 +57,38 @@ import {
   FaTerminal,
   FaWindows
 } from 'react-icons/fa6';
+import { getSkillVisual } from "../utils/motionVariants";
+
+const skillsContainerVariants = {
+  hidden: {
+    transition: {
+      staggerChildren: 0.06,
+      staggerDirection: -1,
+    },
+  },
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.08,
+      staggerDirection: 1,
+    },
+  },
+};
+
+const skillBadgeVariants = {
+  hidden: {
+    opacity: 0,
+    x: -36,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 const skillVisuals = {
   Java:              { icon: FaJava,           color: '#f89820', desc: 'Object-oriented language built for enterprise apps and scalable backends.' },
@@ -97,137 +134,25 @@ const skillVisuals = {
   'Git/GitHub':      { icon: SiGithub,         color: '#ffffff', desc: 'Version control + hosting combo — the backbone of collaborative software development.' },
 };
 
-const getSkillVisual = (skill) =>
-  skillVisuals[skill] ?? { icon: FaScrewdriverWrench, color: '#8ac6ff', desc: '' };
-
-import { fadeUp, stagger, staggerFast, inViewOptions } from '../utils/motionVariants';
-
-const pillVariant = {
-  hidden: { opacity: 0, scale: 0.88 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const tooltipVariant = {
-  hidden:  { opacity: 0, scale: 0.92 },
-  visible: { opacity: 1, scale: 1,    transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, scale: 0.92, transition: { duration: 0.12 } },
-};
-
-function SkillPill({ skill }) {
-  const visual  = getSkillVisual(skill);
-  const Icon    = visual?.icon;
-  const pillRef = useRef(null);
-  const [hovered, setHovered] = useState(false);
-  const [tipPos,  setTipPos]  = useState({ top: 0, left: 0 });
-
-  const calcPos = () => {
-    if (!pillRef.current) return;
-    const r   = pillRef.current.getBoundingClientRect();
-    const TIP = 260; // tooltip width in px
-    // Clamp left so tooltip stays inside viewport
-    const rawLeft = r.left + r.width / 2;
-    const left    = Math.min(Math.max(rawLeft, TIP / 2 + 8), window.innerWidth - TIP / 2 - 8);
-    setTipPos({ top: r.top - 10, left });
-  };
-
-  const handleEnter = () => { calcPos(); setHovered(true); };
-  const handleLeave = () => setHovered(false);
-
-  // Keep position accurate while hovered
-  useEffect(() => {
-    if (!hovered) return;
-    window.addEventListener('scroll', calcPos, true);
-    window.addEventListener('resize', calcPos);
-    return () => {
-      window.removeEventListener('scroll', calcPos, true);
-      window.removeEventListener('resize', calcPos);
-    };
-  }, [hovered]);
-
-  return (
-    <>
+const SkillsSection = () => {
+  const renderCategory = (category) => (
+    <div key={category.title} className="skills-category">
+      <h3 className="skills-category-title">{category.title}</h3>
       <motion.div
-        ref={pillRef}
-        className="skill-pill"
-        style={{ '--skill-color': visual?.color || '#ffffff' }}
-        variants={pillVariant}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
+        className="skills-category-grid"
+        variants={skillsContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false }}
       >
-        <span className="skill-pill-shimmer" aria-hidden="true" />
-        {Icon && <Icon className="skill-icon" aria-hidden="true" />}
-        <span>{skill}</span>
+        {category.skills.map((skill) => (
+          <motion.div key={skill} variants={skillBadgeVariants}>
+            <SkillPill skill={skill} />
+          </motion.div>
+        ))}
       </motion.div>
-
-      {createPortal(
-        <AnimatePresence>
-          {hovered && visual?.desc && (
-            /* Outer div: handles fixed positioning — no Framer interference */
-            <div
-              style={{
-                position: 'fixed',
-                top:  tipPos.top,
-                left: tipPos.left,
-                transform: 'translate(-50%, -100%)',
-                zIndex: 9999,
-                pointerEvents: 'none',
-              }}
-            >
-              {/* Inner motion.div: handles only opacity/scale animation */}
-              <motion.div
-                className="skill-tooltip"
-                style={{ '--tip-color': visual.color }}
-                variants={tooltipVariant}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                role="tooltip"
-              >
-                <div className="skill-tooltip-icon-wrap">
-                  {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
-                </div>
-                <div className="skill-tooltip-body">
-                  <span className="skill-tooltip-name">{skill}</span>
-                  <p className="skill-tooltip-desc">{visual.desc}</p>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
-    </>
+    </div>
   );
-}
-
-function SkillsSection() {
-  const headerRef = useRef(null);
-  const bodyRef = useRef(null);
-  const headerInView = useInView(headerRef, inViewOptions);
-  const bodyInView = useInView(bodyRef, inViewOptions);
-
-  const renderCategory = (title, items, groupClassName = '') => {
-    return (
-      <motion.div
-        key={title}
-        className={`skills-group ${groupClassName}`.trim()}
-        variants={fadeUp}
-      >
-        <h4 className="skills-group-title">{title}</h4>
-        <motion.div
-          className="skills-category-grid"
-          variants={staggerFast}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px 0px' }}
-        >
-          {items.map((skill) => (
-            <SkillPill key={`${title}-${skill}`} skill={skill} title={title} />
-          ))}
-        </motion.div>
-      </motion.div>
-    );
-  };
 
   return (
     <section id="skills" className="section container section-shell">

@@ -70,16 +70,13 @@ function ProjectsSection() {
       </motion.div>
 
       {/* ── Bento grid ── */}
-      <motion.div
+      <div
         ref={gridRef}
         className="project-grid"
-        variants={stagger}
-        initial="hidden"
-        animate={gridInView ? 'visible' : 'hidden'}
       >
         {projects.map((project, index) => {
-          const isWide   = true;
-          const hasImage = Boolean(project.image);
+          const hasImage  = Boolean(project.image);
+          const fromLeft  = index % 2 === 0;
 
           return (
             <motion.article
@@ -90,7 +87,10 @@ function ProjectsSection() {
                 'pc-has-image',
                 themeClass[project.name] ?? '',
               ].filter(Boolean).join(' ')}
-              variants={slideLeft}
+              initial={{ opacity: 0, x: fromLeft ? -120 : 120 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="pc-inner">
                 {/* Centered spotlight that appears on hover */}
@@ -165,7 +165,7 @@ function ProjectsSection() {
             </motion.article>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }
