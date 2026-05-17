@@ -124,8 +124,8 @@ function SkillPill({ skill }) {
     if (pillRef.current) {
       const r = pillRef.current.getBoundingClientRect();
       setTipPos({
-        top:  r.top  + window.scrollY - 14,
-        left: r.left + window.scrollX + r.width / 2,
+        top:  r.top - 10,                  // viewport-relative: just above pill
+        left: r.left + r.width / 2,        // viewport-relative: centred
       });
     }
     setHovered(true);
@@ -153,7 +153,7 @@ function SkillPill({ skill }) {
               className="skill-tooltip"
               style={{
                 '--tip-color': visual.color,
-                position: 'absolute',
+                position: 'fixed',
                 top:  tipPos.top,
                 left: tipPos.left,
                 transform: 'translate(-50%, -100%)',
