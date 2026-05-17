@@ -112,20 +112,34 @@ const tooltipVariant = {
   exit:    { opacity: 0, y: 6, scale: 0.94, transition: { duration: 0.15 } },
 };
 
-function SkillPill({ skill, title }) {
+function SkillPill({ skill }) {
   const visual = getSkillVisual(skill);
   const Icon = visual?.icon;
   const [hovered, setHovered] = useState(false);
+  const [tipPos, setTipPos]   = useState({ top: 0, left: 0 });
+  const pillRef = useRef(null);
+
+  const handleEnter = () => {
+    if (pillRef.current) {
+      const rect = pillRef.current.getBoundingClientRect();
+      setTipPos({
+        top:  rect.top  - 12,
+        left: rect.left + rect.width / 2,
+      });
+    }
+    setHovered(true);
+  };
 
   return (
     <motion.div
-      key={`${title}-${skill}`}
+      ref={pillRef}
       className="skill-pill"
       style={{ '--skill-color': visual?.color || '#ffffff' }}
       variants={pillVariant}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={handleEnter}
       onMouseLeave={() => setHovered(false)}
     >
+      <span className="skill-pill-shimmer" aria-hidden="true" />
       {Icon && <Icon className="skill-icon" aria-hidden="true" />}
       <span>{skill}</span>
 
@@ -133,13 +147,19 @@ function SkillPill({ skill, title }) {
         {hovered && visual?.desc && (
           <motion.div
             className="skill-tooltip"
+            style={{
+              '--tip-color': visual.color,
+              top:  tipPos.top,
+              left: tipPos.left,
+              transform: 'translate(-50%, -100%)',
+            }}
             variants={tooltipVariant}
             initial="hidden"
             animate="visible"
             exit="exit"
             role="tooltip"
           >
-            <div className="skill-tooltip-icon-wrap" style={{ '--tip-color': visual.color }}>
+            <div className="skill-tooltip-icon-wrap">
               {Icon && <Icon className="skill-tooltip-icon" aria-hidden="true" />}
             </div>
             <div className="skill-tooltip-body">

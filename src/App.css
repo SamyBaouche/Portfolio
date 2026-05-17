@@ -632,12 +632,17 @@ main { position:relative; z-index:2; }
   font-family:'Geist',sans-serif; font-size:0.8rem; white-space:nowrap;
   transition:border-color 0.25s,color 0.25s,background 0.25s,transform 0.25s,box-shadow 0.25s;
 }
-.skill-pill::after {
-  content:''; position:absolute; inset:0; border-radius:var(--r-md);
-  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,0.05),transparent 80%);
-  transform:translateX(-140%); transition:transform 0.5s; pointer-events:none; overflow:hidden;
+/* Shimmer span — clipped to pill bounds */
+.skill-pill-shimmer {
+  position:absolute; inset:0; border-radius:var(--r-md); overflow:hidden;
+  pointer-events:none; z-index:0;
 }
-.skill-pill:hover::after { transform:translateX(130%); }
+.skill-pill-shimmer::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,0.06),transparent 80%);
+  transform:translateX(-140%); transition:transform 0.5s;
+}
+.skill-pill:hover .skill-pill-shimmer::after { transform:translateX(130%); }
 .skill-pill:hover {
   transform:translateY(-2px);
   border-color:color-mix(in oklab,var(--skill-color) 42%,transparent);
@@ -645,12 +650,13 @@ main { position:relative; z-index:2; }
   background:color-mix(in oklab,var(--skill-color) 9%,var(--bg-2));
   box-shadow:0 0 14px color-mix(in oklab,var(--skill-color) 14%,transparent),0 6px 20px rgba(0,0,0,0.35);
 }
-.skill-icon { color:var(--skill-color); font-size:1rem; }
+.skill-icon { color:var(--skill-color); font-size:1rem; position:relative; z-index:1; }
+.skill-pill > span:not(.skill-pill-shimmer) { position:relative; z-index:1; }
 
 /* ── Skill tooltip ─────────────────────────────────────────────────── */
 .skill-tooltip {
-  position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%);
-  z-index:999; width:260px; pointer-events:none;
+  position:absolute; top:calc(100% + 10px); left:50%; transform:translateX(-50%);
+  z-index:9999; width:260px; pointer-events:none;
   background:var(--bg-3);
   border:1px solid color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
   border-radius:14px;
@@ -660,12 +666,12 @@ main { position:relative; z-index:2; }
     0 0 28px color-mix(in oklab,var(--tip-color,var(--v)) 12%,transparent);
   padding:14px;
   display:flex; gap:12px; align-items:flex-start;
-  overflow:visible;
 }
+/* Arrow pointing UP (tooltip is below the pill) */
 .skill-tooltip::after {
-  content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%);
   border:6px solid transparent;
-  border-top-color:color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
+  border-bottom-color:color-mix(in oklab,var(--tip-color,var(--v)) 28%,var(--border));
 }
 .skill-tooltip-icon-wrap {
   flex-shrink:0;
@@ -687,7 +693,7 @@ main { position:relative; z-index:2; }
 }
 .skill-tooltip-desc {
   margin:0; font-size:0.72rem; line-height:1.5;
-  color:var(--text-sub);
+  color:var(--text-sub); white-space:normal; word-break:break-word;
 }
 [data-theme="light"] .skill-tooltip {
   background:var(--bg-2);
