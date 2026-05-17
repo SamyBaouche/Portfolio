@@ -86,9 +86,9 @@ function ProjectsSection() {
               key={project.name}
               className={[
                 'project-card',
+                'pc-wide',
+                'pc-has-image',
                 themeClass[project.name] ?? '',
-                isWide ? 'pc-wide' : '',
-                hasImage ? 'pc-has-image' : '',
               ].filter(Boolean).join(' ')}
               variants={slideLeft}
             >
@@ -143,17 +143,24 @@ function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Project screenshot — only when image is provided */}
-                {hasImage && (
-                  <div className="pc-screenshot-wrap">
+                {/* Project screenshot — image or styled placeholder */}
+                <div className="pc-screenshot-wrap">
+                  {hasImage ? (
                     <img
                       src={project.image}
                       alt={`${project.name} screenshot`}
                       className="pc-screenshot"
                     />
-                    <div className="pc-screenshot-glow" aria-hidden="true" />
-                  </div>
-                )}
+                  ) : (
+                    <div className="pc-screenshot-placeholder" aria-hidden="true">
+                      <span className="pc-placeholder-name">{project.name}</span>
+                      <div className="pc-placeholder-lines">
+                        <span /><span /><span /><span /><span />
+                      </div>
+                    </div>
+                  )}
+                  <div className="pc-screenshot-glow" aria-hidden="true" />
+                </div>
               </div>
             </motion.article>
           );
