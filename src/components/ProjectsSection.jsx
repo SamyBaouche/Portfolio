@@ -78,8 +78,8 @@ function ProjectsSection() {
         animate={gridInView ? 'visible' : 'hidden'}
       >
         {projects.map((project, index) => {
-          const isWide    = index === 0 || index === projects.length - 1;
-          const hasImage  = Boolean(project.image);
+          const isWide   = true;
+          const hasImage = Boolean(project.image);
 
           return (
             <motion.article
