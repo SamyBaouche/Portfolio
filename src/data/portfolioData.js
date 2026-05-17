@@ -49,6 +49,7 @@ export const projects = [
   {
     name: 'EcoNova',
     description: 'Full-stack financial web application',
+    image: '/econova.png',
     stack: ['Python', 'Django', 'HTML', 'CSS', 'JavaScript', 'PostgreSQL'],
     features: [
       'Secure authentication',
