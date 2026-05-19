@@ -1,0 +1,66 @@
+<svg width="1200" height="1697" viewBox="0 0 1200 1697" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Samy Baouche Resume Preview</title>
+  <desc id="desc">Styled one-page resume preview with profile summary, skills, projects, and experience blocks.</desc>
+  <rect width="1200" height="1697" fill="#ECE8DF"/>
+  <rect x="90" y="70" width="1020" height="1557" rx="28" fill="#FFFDF7" stroke="#D7D0C1" stroke-width="2"/>
+
+  <rect x="90" y="70" width="1020" height="260" rx="28" fill="#1E1A33"/>
+  <rect x="90" y="280" width="1020" height="50" fill="#1E1A33"/>
+
+  <text x="150" y="170" font-family="Geist, Arial, sans-serif" font-size="62" font-weight="700" fill="#F5F1E8">SAMY BAOUCHE</text>
+  <text x="150" y="220" font-family="Geist Mono, monospace" font-size="24" letter-spacing="2" fill="#BFA8F8">SOFTWARE ENGINEERING STUDENT</text>
+  <text x="150" y="270" font-family="Geist, Arial, sans-serif" font-size="22" fill="#D9D3E7">Montreal, QC • samy.baouche@gmail.com • github.com/SamyBaouche</text>
+
+  <rect x="140" y="380" width="360" height="34" rx="8" fill="#ECE5FA"/>
+  <text x="158" y="405" font-family="Geist, Arial, sans-serif" font-size="20" font-weight="600" fill="#5C3AC4">PROFILE</text>
+
+  <rect x="140" y="440" width="920" height="18" rx="9" fill="#CDC8BC"/>
+  <rect x="140" y="472" width="900" height="18" rx="9" fill="#CDC8BC"/>
+  <rect x="140" y="504" width="860" height="18" rx="9" fill="#CDC8BC"/>
+
+  <rect x="140" y="582" width="360" height="34" rx="8" fill="#ECE5FA"/>
+  <text x="158" y="607" font-family="Geist, Arial, sans-serif" font-size="20" font-weight="600" fill="#5C3AC4">TECHNICAL SKILLS</text>
+
+  <rect x="140" y="646" width="260" height="42" rx="21" fill="#F2EEE3" stroke="#D6D0C2"/>
+  <text x="170" y="674" font-family="Geist, Arial, sans-serif" font-size="20" fill="#2A2738">Java / Python / Go</text>
+
+  <rect x="416" y="646" width="245" height="42" rx="21" fill="#F2EEE3" stroke="#D6D0C2"/>
+  <text x="445" y="674" font-family="Geist, Arial, sans-serif" font-size="20" fill="#2A2738">React / Node.js</text>
+
+  <rect x="677" y="646" width="200" height="42" rx="21" fill="#F2EEE3" stroke="#D6D0C2"/>
+  <text x="708" y="674" font-family="Geist, Arial, sans-serif" font-size="20" fill="#2A2738">Docker / AWS</text>
+
+  <rect x="893" y="646" width="167" height="42" rx="21" fill="#F2EEE3" stroke="#D6D0C2"/>
+  <text x="922" y="674" font-family="Geist, Arial, sans-serif" font-size="20" fill="#2A2738">Terraform</text>
+
+  <rect x="140" y="748" width="360" height="34" rx="8" fill="#ECE5FA"/>
+  <text x="158" y="773" font-family="Geist, Arial, sans-serif" font-size="20" font-weight="600" fill="#5C3AC4">PROJECT HIGHLIGHTS</text>
+
+  <circle cx="160" cy="840" r="6" fill="#7C52E4"/>
+  <rect x="182" y="826" width="845" height="16" rx="8" fill="#C9C2B6"/>
+  <rect x="182" y="852" width="790" height="14" rx="7" fill="#D8D2C6"/>
+
+  <circle cx="160" cy="914" r="6" fill="#7C52E4"/>
+  <rect x="182" y="900" width="875" height="16" rx="8" fill="#C9C2B6"/>
+  <rect x="182" y="926" width="770" height="14" rx="7" fill="#D8D2C6"/>
+
+  <circle cx="160" cy="988" r="6" fill="#7C52E4"/>
+  <rect x="182" y="974" width="860" height="16" rx="8" fill="#C9C2B6"/>
+  <rect x="182" y="1000" width="810" height="14" rx="7" fill="#D8D2C6"/>
+
+  <rect x="140" y="1086" width="360" height="34" rx="8" fill="#ECE5FA"/>
+  <text x="158" y="1111" font-family="Geist, Arial, sans-serif" font-size="20" font-weight="600" fill="#5C3AC4">EXPERIENCE</text>
+
+  <rect x="140" y="1148" width="920" height="108" rx="14" fill="#F4F0E6" stroke="#DED8CC"/>
+  <rect x="168" y="1178" width="360" height="16" rx="8" fill="#8B5CF6" opacity="0.35"/>
+  <rect x="168" y="1204" width="840" height="12" rx="6" fill="#C9C2B6"/>
+  <rect x="168" y="1226" width="785" height="12" rx="6" fill="#D8D2C6"/>
+
+  <rect x="140" y="1298" width="920" height="108" rx="14" fill="#F4F0E6" stroke="#DED8CC"/>
+  <rect x="168" y="1328" width="400" height="16" rx="8" fill="#8B5CF6" opacity="0.35"/>
+  <rect x="168" y="1354" width="840" height="12" rx="6" fill="#C9C2B6"/>
+  <rect x="168" y="1376" width="760" height="12" rx="6" fill="#D8D2C6"/>
+
+  <rect x="140" y="1470" width="920" height="102" rx="14" fill="#1E1A33"/>
+  <text x="170" y="1530" font-family="Geist Mono, monospace" font-size="18" letter-spacing="1.5" fill="#D8C9FB">Download full resume for complete details and links</text>
+</svg>

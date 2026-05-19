@@ -5,7 +5,10 @@
 
 /** Fade + slide up — main building block */
 export const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: (direction = 1) => ({
+    opacity: 0,
+    y: direction > 0 ? 32 : -32,
+  }),
   visible: {
     opacity: 1,
     y: 0,
@@ -54,5 +57,5 @@ export const staggerFast = {
   },
 };
 
-/** Common useInView options — fires once, starts 80px before element hits viewport */
-export const inViewOptions = { once: true, margin: '-80px 0px' };
+/** Common useInView options — replays when re-entering for fluid up/down scrolling */
+export const inViewOptions = { once: false, margin: '-70px 0px -12% 0px' };

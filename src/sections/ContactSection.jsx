@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, Send, CheckCircle, AlertCircle, Loader } from '
 import emailjs from '@emailjs/browser';
 import { contact } from '../data/portfolioData';
 import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
+import { useScrollDirection } from '../utils/useScrollDirection';
 
 const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -12,6 +13,7 @@ const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 function ContactSection() {
   const ref = useRef(null);
   const formRef = useRef(null);
+  const scrollDirection = useScrollDirection();
   const isInView = useInView(ref, inViewOptions);
 
   const [form, setForm]     = useState({ name: '', email: '', message: '' });
@@ -70,6 +72,7 @@ function ContactSection() {
         ref={ref}
         className="contact-card glass"
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
       >

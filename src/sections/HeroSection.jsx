@@ -3,9 +3,11 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Github, Linkedin } from 'lucide-react';
 import { socialLinks } from '../data/portfolioData';
 import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
+import { useScrollDirection } from '../utils/useScrollDirection';
 
 function HeroSection() {
   const ref = useRef(null);
+  const scrollDirection = useScrollDirection();
   // Hero is always above the fold — no offset needed
   const isInView = useInView(ref, { once: true, margin: '0px' });
 
@@ -15,6 +17,7 @@ function HeroSection() {
         ref={ref}
         className="hero-text"
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
       >

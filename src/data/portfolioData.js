@@ -3,6 +3,7 @@ export const navLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -14,9 +15,27 @@ export const socialLinks = {
 
 export const projects = [
   {
+    name: 'NeuroOps',
+    description: 'AI-POWERED KUBERNETES PLATFORM',
+    subtitle: 'Cloud-native Kubernetes observability and self-healing platform',
+    image: '/images/neuroops.png?v=20260519',
+    stack: ['Go', 'Kubernetes', 'Terraform', 'Docker', 'AWS', 'GitHub Actions', 'Prometheus', 'Grafana'],
+    features: [
+      'Built a cloud-native Kubernetes observability and self-healing platform.',
+      'Developed Go endpoints for health checks, readiness checks, failure simulation, and CPU load testing.',
+      'Deployed Kubernetes liveness/readiness probes for automated recovery and safer traffic routing.',
+      'Implemented Horizontal Pod Autoscaling to scale workloads from 1 to 5 pods under CPU pressure.',
+      'Automated CI/CD with GitHub Actions for Go tests, Docker builds, and AWS ECR publishing.',
+      'Integrated Prometheus, Grafana, and a Cobra/Bubble Tea CLI-TUI for workload diagnostics.'
+    ],
+    links: {
+      github: 'https://github.com/SamyBaouche/neuroops'
+    }
+  },
+  {
     name: 'ZeroTrustCloud',
     description: 'Cloud Security Platform',
-    image: '/zerotrustcloud.png',
+    image: '/images/zerotrustcloud.png',
     stack: ['Spring Boot', 'React', 'TypeScript', 'PostgreSQL', 'Docker', 'AWS'],
     features: [
       'Engineered a full-stack Zero Trust cloud security platform simulating real-time access control decisions using contextual risk scoring',
@@ -33,7 +52,7 @@ export const projects = [
   {
     name: 'CourseFlow',
     description: 'Student dashboard web platform',
-    image: '/landing.png',
+    image: '/images/landing.png',
     stack: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'SQL'],
     features: [
       'Course management',
@@ -49,7 +68,7 @@ export const projects = [
   {
     name: 'EcoNova',
     description: 'Full-stack financial web application',
-    image: '/econova.png',
+    image: '/images/econova.png',
     stack: ['Python', 'Django', 'HTML', 'CSS', 'JavaScript', 'PostgreSQL'],
     features: [
       'Secure authentication',
@@ -66,7 +85,7 @@ export const projects = [
   {
     name: 'Invasion Agricole',
     description: '2D arcade game',
-    image: '/agricole.png',
+    image: '/images/agricole.png',
     stack: ['Java', 'JavaFX'],
     features: [
       '60 FPS physics engine',
@@ -159,7 +178,7 @@ export const experience = [
   {
     title: '1st Place @HACK 2026 Cybersecurity CTF',
     subtitle: 'Interac Beginner category',
-    image: '/hackathon.png',
+    image: '/images/hackathon.png',
     link: 'https://www.linkedin.com/posts/samy-baouche-611178246_athack2026-cybersecurity-ctf-activity-7437992668074438657-1hRV?utm_source=share&utm_medium=member_desktop&rcm=ACoAADzknG0BnldHeznjVcXUbewhbcJeoFRtnDk'
   }
 ];
@@ -168,4 +187,15 @@ export const contact = {
   email: 'samy.baouche@gmail.com',
   github: 'https://github.com/SamyBaouche',
   linkedin: 'https://www.linkedin.com/in/samy-baouche-611178246/'
+};
+
+export const resume = {
+  title: 'Resume',
+  subtitle: 'Professional Resume',
+  description:
+    'Download or preview my latest software engineering resume, including projects, technical skills, and experience highlights.',
+  image: '/documents/resume_samy_swe.pdf',
+  imageAlt: 'Preview of Samy Baouche software engineering resume',
+  fileUrl: '/documents/resume_samy_swe.pdf',
+  fileName: 'resume_samy_swe.pdf'
 };

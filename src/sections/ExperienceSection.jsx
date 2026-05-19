@@ -3,12 +3,14 @@ import { motion, useInView } from 'framer-motion';
 import { Trophy, Briefcase, Landmark } from 'lucide-react';
 import { experience } from '../data/portfolioData';
 import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
+import { useScrollDirection } from '../utils/useScrollDirection';
 
 const iconMap = [Trophy, Briefcase, Landmark];
 
 function ExperienceSection() {
   const headerRef = useRef(null);
   const listRef = useRef(null);
+  const scrollDirection = useScrollDirection();
   const headerInView = useInView(headerRef, inViewOptions);
   const listInView = useInView(listRef, inViewOptions);
 
@@ -17,6 +19,7 @@ function ExperienceSection() {
       <motion.div
         ref={headerRef}
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={headerInView ? 'visible' : 'hidden'}
       >
@@ -28,6 +31,7 @@ function ExperienceSection() {
         ref={listRef}
         className="experience-list"
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={listInView ? 'visible' : 'hidden'}
       >

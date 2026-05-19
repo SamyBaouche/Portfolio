@@ -12,16 +12,23 @@ import {
   FaPython
 } from 'react-icons/fa6';
 import {
+  SiGo,
   SiDjango,
   SiDocker,
+  SiGrafana,
+  SiGithubactions,
   SiJavascript,
+  SiKubernetes,
+  SiPrometheus,
   SiPostgresql,
   SiReact,
   SiSpringboot,
+  SiTerraform,
   SiTypescript
 } from 'react-icons/si';
 import { projects } from '../data/portfolioData';
 import { fadeUp, stagger, slideLeft, inViewOptions } from '../utils/motionVariants';
+import { useScrollDirection } from '../utils/useScrollDirection';
 
 const techVisuals = {
   Python:       { icon: FaPython,      color: '#3776ab' },
@@ -39,12 +46,19 @@ const techVisuals = {
   TypeScript:   { icon: SiTypescript,  color: '#3178c6' },
   Docker:       { icon: SiDocker,      color: '#2496ed' },
   AWS:          { icon: FaAws,         color: '#ff9900' },
+  Go:           { icon: SiGo,          color: '#00add8' },
+  Kubernetes:   { icon: SiKubernetes,  color: '#326ce5' },
+  Terraform:    { icon: SiTerraform,   color: '#7b42bc' },
+  'GitHub Actions': { icon: SiGithubactions, color: '#2088ff' },
+  Prometheus:   { icon: SiPrometheus,  color: '#e6522c' },
+  Grafana:      { icon: SiGrafana,     color: '#f46800' },
 };
 
 const getTechVisual = (tech) => techVisuals[tech] ?? { icon: FaCodeBranch, color: '#aab2c5' };
 
 const themeClass = {
   ZeroTrustCloud:    'project-theme-zerotrust',
+  NeuroOps:          'project-theme-neuroops',
   EcoNova:           'project-theme-econova',
   CourseFlow:        'project-theme-courseflow',
   'Invasion Agricole':'project-theme-invasion',
@@ -53,6 +67,7 @@ const themeClass = {
 function ProjectsSection() {
   const headerRef = useRef(null);
   const gridRef   = useRef(null);
+  const scrollDirection = useScrollDirection();
   const headerInView = useInView(headerRef, inViewOptions);
   const gridInView   = useInView(gridRef,   inViewOptions);
 
@@ -62,6 +77,7 @@ function ProjectsSection() {
       <motion.div
         ref={headerRef}
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={headerInView ? 'visible' : 'hidden'}
       >
@@ -114,6 +130,7 @@ function ProjectsSection() {
 
                   {/* Project name */}
                   <h4 className="pc-name">{project.name}</h4>
+                  {project.subtitle ? <p className="pc-subtitle">{project.subtitle}</p> : null}
 
                   {/* Accent divider */}
                   <div className="pc-divider" />

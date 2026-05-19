@@ -98,11 +98,14 @@
   background: var(--bg-3);
 }
 [data-theme="light"] .skill-pill {
-  background: var(--bg-2);
-  border-color: rgba(0,0,0,0.09);
+  background: #f8f4ec;
+  border-color: rgba(0,0,0,0.14);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.75) inset;
+  color: #14141b;
 }
 [data-theme="light"] .skill-pill:hover {
-  background: color-mix(in oklab, var(--skill-color) 10%, var(--bg-2));
+  background: color-mix(in oklab, var(--skill-color) 11%, #f3ede1);
+  border-color: color-mix(in oklab, var(--skill-color) 34%, rgba(0,0,0,0.18));
 }
 [data-theme="light"] .project-card:hover {
   box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 40px color-mix(in oklab, var(--accent) 12%, transparent);
@@ -135,6 +138,19 @@ img { display:block; max-width:100%; }
    APP SHELL
 ============================================================ */
 .app { position:relative; overflow-x:clip; }
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform-origin: 0% 50%;
+  z-index: 260;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--v-dark) 0%, var(--v) 50%, var(--v-bright) 100%);
+  box-shadow: 0 0 18px color-mix(in oklab, var(--v) 50%, transparent);
+}
 
 .ambient-gradient {
   position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -391,9 +407,32 @@ main { position:relative; z-index:2; }
 
 /* ── Per-project accent colors ──────────────────────────── */
 .project-theme-zerotrust  { --accent: #22d3ee; }
+.project-theme-neuroops   { --accent: #b983ff; }
 .project-theme-econova    { --accent: #f472b6; }
 .project-theme-courseflow { --accent: #fb923c; }
 .project-theme-invasion   { --accent: #34d399; }
+
+.project-theme-neuroops {
+  border-color: rgba(185,131,255,0.42);
+  background:
+    radial-gradient(80% 130% at 95% 5%, rgba(255,146,60,0.14) 0%, rgba(255,146,60,0) 45%),
+    radial-gradient(65% 120% at 0% 100%, rgba(36,226,255,0.13) 0%, rgba(36,226,255,0) 48%),
+    linear-gradient(145deg, #090712 0%, #0e0b1c 48%, #08070f 100%);
+}
+
+.project-theme-neuroops::before {
+  background: linear-gradient(90deg, #b983ff 0%, rgba(255,146,60,0.72) 45%, rgba(36,226,255,0.4) 85%, transparent 100%);
+}
+
+.project-theme-neuroops .pc-tag {
+  color: #d8b8ff;
+  border-color: rgba(185,131,255,0.4);
+  background: rgba(185,131,255,0.12);
+}
+
+.project-theme-neuroops .pc-divider {
+  background: linear-gradient(90deg, rgba(185,131,255,0.85), rgba(255,146,60,0.68) 42%, rgba(36,226,255,0.52) 78%, transparent 100%);
+}
 
 /* Centered radial spotlight — blooms from the middle on hover */
 .pc-spotlight {
@@ -472,6 +511,26 @@ main { position:relative; z-index:2; }
   opacity: 1;
   transform: scale(1.03);
 }
+
+/* Keep specific screenshots centered while fully filling the image frame. */
+.project-theme-neuroops .pc-screenshot,
+.project-theme-econova .pc-screenshot {
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-theme-neuroops .pc-screenshot {
+  object-position: left center;
+}
+
+.project-theme-neuroops .pc-screenshot-wrap {
+  height: 248px;
+}
+
+.project-theme-neuroops:hover .pc-screenshot,
+.project-theme-econova:hover .pc-screenshot {
+  transform: scale(1.01);
+}
 /* Left-edge gradient so the image bleeds into the card bg */
 .pc-screenshot-glow {
   position: absolute; inset: 0;
@@ -520,6 +579,9 @@ main { position:relative; z-index:2; }
     width: 100%;
     height: 220px;
   }
+  .project-theme-neuroops .pc-screenshot-wrap {
+    height: 205px;
+  }
 }
 [data-theme="light"] .pc-screenshot-glow {
   background: linear-gradient(
@@ -562,6 +624,13 @@ main { position:relative; z-index:2; }
   font-size: clamp(1.55rem, 2.8vw, 2.3rem);
   font-weight: 800; letter-spacing: -0.035em; line-height: 1.1;
   color: #fff;
+}
+
+.pc-subtitle {
+  margin-top: -2px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.67);
 }
 
 .pc-divider {
@@ -615,21 +684,74 @@ main { position:relative; z-index:2; }
 [data-theme="light"] .project-card {
   background: linear-gradient(
     145deg,
-    color-mix(in oklab, var(--accent) 13%, #f0ede4) 0%,
-    color-mix(in oklab, var(--accent) 5%, #faf8f2) 100%
+    color-mix(in oklab, var(--accent) 24%, #ddd6c8) 0%,
+    color-mix(in oklab, var(--accent) 14%, #ece4d5) 100%
   );
-  border-color: color-mix(in oklab, var(--accent) 30%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 44%, rgba(0,0,0,0.16));
+  box-shadow: 0 14px 34px rgba(0,0,0,0.14), 0 0 24px color-mix(in oklab, var(--accent) 10%, transparent);
 }
 [data-theme="light"] .project-card:hover {
-  box-shadow: 0 20px 50px rgba(0,0,0,0.10), 0 0 40px color-mix(in oklab, var(--accent) 12%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 48%, rgba(0,0,0,0.16));
+  box-shadow: 0 24px 56px rgba(0,0,0,0.18), 0 0 38px color-mix(in oklab, var(--accent) 16%, transparent);
 }
 [data-theme="light"] .pc-name  { color: #18181f; }
-[data-theme="light"] .pc-features li { color: rgba(24,24,31,0.62); }
-[data-theme="light"] .pc-github { color: rgba(24,24,31,0.50); border-color: rgba(0,0,0,0.11); }
-[data-theme="light"] .pc-github:hover { color: #18181f; }
-[data-theme="light"] .pc-chip  { background: rgba(255,255,255,0.55); color: rgba(24,24,31,0.72); }
+[data-theme="light"] .pc-subtitle { color: rgba(24,24,31,0.72); }
+[data-theme="light"] .pc-features li { color: rgba(24,24,31,0.76); }
+[data-theme="light"] .pc-features li::before {
+  box-shadow: 0 0 5px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+[data-theme="light"] .pc-github {
+  color: rgba(24,24,31,0.64);
+  border-color: rgba(0,0,0,0.16);
+  background: rgba(255,255,255,0.78);
+}
+[data-theme="light"] .pc-github:hover {
+  color: #18181f;
+  background: color-mix(in oklab, var(--accent) 12%, #ffffff);
+}
+[data-theme="light"] .pc-chip  {
+  background: rgba(255,255,255,0.82);
+  color: rgba(24,24,31,0.76);
+  border-color: color-mix(in oklab, var(--chip-color) 30%, rgba(0,0,0,0.15));
+}
 [data-theme="light"] .pc-chip:hover { color: #18181f; }
 [data-theme="light"] .pc-stack { border-top-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .pc-tag {
+  color: color-mix(in oklab, var(--accent) 62%, #22232d);
+  background: color-mix(in oklab, var(--accent) 16%, #f7f3ea);
+  border-color: color-mix(in oklab, var(--accent) 36%, rgba(0,0,0,0.16));
+}
+[data-theme="light"] .pc-divider {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 48%, rgba(0,0,0,0.2)), transparent 72%);
+}
+[data-theme="light"] .pc-screenshot-wrap {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent) 24%, rgba(0,0,0,0.16)),
+    0 14px 30px rgba(0,0,0,0.16),
+    0 0 24px color-mix(in oklab, var(--accent) 12%, transparent);
+}
+[data-theme="light"] .pc-screenshot {
+  opacity: 0.98;
+}
+[data-theme="light"] .pc-screenshot-glow {
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--accent) 6%, rgba(0,0,0,0.03)) 0%,
+    transparent 26%
+  );
+}
+
+/* Dedicated light-mode treatment so NeuroOps stays readable and premium. */
+[data-theme="light"] .project-theme-neuroops {
+  background:
+    radial-gradient(82% 118% at 96% 6%, rgba(251,146,60,0.14) 0%, rgba(251,146,60,0) 44%),
+    radial-gradient(64% 112% at 0% 100%, rgba(34,211,238,0.10) 0%, rgba(34,211,238,0) 48%),
+    linear-gradient(145deg, #ece4f9 0%, #e8ddce 56%, #efe6d8 100%);
+  border-color: rgba(139,92,246,0.34);
+}
+[data-theme="light"] .project-theme-neuroops::before {
+  background: linear-gradient(90deg, rgba(139,92,246,0.82) 0%, rgba(251,146,60,0.74) 45%, rgba(34,211,238,0.52) 84%, transparent 100%);
+}
 
 /* Responsive */
 @media (max-width: 860px) {
@@ -658,7 +780,31 @@ main { position:relative; z-index:2; }
   letter-spacing:0.18em; text-transform:uppercase;
   color:var(--text-muted); margin-bottom:14px;
 }
-.skills-category-grid { display:flex; flex-wrap:wrap; gap:8px; }
+
+.skills-category {
+  margin-bottom: 1.8rem;
+}
+
+.skills-category:last-child {
+  margin-bottom: 0;
+}
+
+.skills-category-title {
+  font-family:'Geist',sans-serif;
+  font-size:0.8rem;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-sub);
+  margin-bottom: 0.9rem;
+}
+
+.skills-category-grid {
+  display:flex;
+  flex-wrap:wrap;
+  column-gap:12px;
+  row-gap:16px;
+}
 .skill-pill {
   position:relative;
   display:inline-flex; align-items:center; gap:8px;
@@ -845,6 +991,105 @@ main { position:relative; z-index:2; }
 /* ============================================================
    CONTACT
 ============================================================ */
+.resume-wrap {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 460px);
+  gap: clamp(1.2rem, 3.5vw, 2.5rem);
+  align-items: center;
+}
+
+.resume-copy {
+  min-width: 0;
+}
+
+.resume-title {
+  margin-bottom: 1.2rem;
+}
+
+.resume-text {
+  font-size: 0.94rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
+
+.resume-actions {
+  margin-top: 1.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.resume-preview {
+  position: relative;
+  display: block;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-v-sm);
+  background: color-mix(in oklab, var(--v) 8%, var(--bg-2));
+  box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 40px rgba(139,92,246,0.14);
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s, border-color 0.3s;
+}
+
+.resume-preview:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-v);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.55), 0 0 55px rgba(139,92,246,0.22);
+}
+
+.resume-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border-v-sm);
+  background: rgba(10,10,18,0.72);
+  color: var(--text-sub);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.resume-pdf-preview {
+  width: 100%;
+  height: clamp(360px, 55vw, 620px);
+  border: 0;
+  display: block;
+  background: #fff;
+}
+
+.resume-frame-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,18,0.24), transparent 40%);
+  pointer-events: none;
+}
+
+[data-theme="light"] .resume-preview {
+  background: color-mix(in oklab, var(--v) 5%, var(--bg-2));
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 0 30px rgba(124,58,237,0.08);
+}
+
+[data-theme="light"] .resume-preview:hover {
+  box-shadow: 0 20px 52px rgba(0,0,0,0.16), 0 0 40px rgba(124,58,237,0.13);
+}
+
+[data-theme="light"] .resume-badge {
+  background: rgba(250,248,242,0.92);
+}
+
 .contact-wrap { padding-bottom:4rem; }
 .contact-card {
   border:1px solid var(--border); border-radius:var(--r-2xl);
@@ -974,6 +1219,13 @@ main { position:relative; z-index:2; }
 
 /* ── Tablet (≤ 860px) ────────────────────────────────────── */
 @media (max-width:860px) {
+  .resume-wrap {
+    grid-template-columns: 1fr;
+  }
+  .resume-preview {
+    max-width: 620px;
+    width: 100%;
+  }
   .hero-code-tag {
     /* prevent horizontal overflow — anchor it inside the name flow */
     position: relative;
@@ -1020,6 +1272,17 @@ main { position:relative; z-index:2; }
 /* ── Small mobile (≤ 620px) ─────────────────────────────── */
 @media (max-width:620px) {
   .container { width:94vw; }
+  .resume-badge {
+    font-size: 0.56rem;
+    padding: 5px 9px;
+  }
+  .resume-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .resume-actions .btn {
+    justify-content: center;
+  }
   /* Hero */
   .hero-name { font-size:clamp(2.6rem,14vw,4rem); }
   .hero-code-tag { font-size: clamp(1.8rem, 12vw, 3.5rem); }
@@ -1036,7 +1299,9 @@ main { position:relative; z-index:2; }
   .pc-features { gap: 6px; }
   /* Skills */
   .skill-pill { font-size:0.77rem; padding:7px 12px; }
-  .skills-category-grid { gap: 6px; }
+  .skills-category { margin-bottom: 1.45rem; }
+  .skills-category-title { margin-bottom: 0.7rem; }
+  .skills-category-grid { column-gap: 8px; row-gap: 10px; }
   /* Chips */
   .chip { font-size:0.69rem; padding:4px 9px; }
   /* Experience */

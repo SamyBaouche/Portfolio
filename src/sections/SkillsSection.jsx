@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import { skillCategories } from '../data/portfolioData';
 import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
+import { useScrollDirection } from '../utils/useScrollDirection';
 import {
   SiCanva,
   SiDjango,
@@ -76,10 +77,10 @@ const skillsContainerVariants = {
 };
 
 const skillBadgeVariants = {
-  hidden: {
+  hidden: (direction = 1) => ({
     opacity: 0,
-    x: -36,
-  },
+    x: direction > 0 ? -36 : 36,
+  }),
   visible: {
     opacity: 1,
     x: 0,
@@ -213,6 +214,7 @@ function SkillPill({ skill }) {
 const SkillsSection = () => {
   const headerRef    = useRef(null);
   const bodyRef      = useRef(null);
+  const scrollDirection = useScrollDirection();
   const headerInView = useInView(headerRef, inViewOptions);
   const bodyInView   = useInView(bodyRef,   inViewOptions);
 
@@ -222,6 +224,7 @@ const SkillsSection = () => {
       <motion.div
         className="skills-category-grid"
         variants={skillsContainerVariants}
+        custom={scrollDirection}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false }}
@@ -240,6 +243,7 @@ const SkillsSection = () => {
       <motion.div
         ref={headerRef}
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={headerInView ? 'visible' : 'hidden'}
       >
@@ -250,6 +254,7 @@ const SkillsSection = () => {
       <motion.div
         ref={bodyRef}
         variants={stagger}
+        custom={scrollDirection}
         initial="hidden"
         animate={bodyInView ? 'visible' : 'hidden'}
       >
