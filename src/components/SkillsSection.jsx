@@ -7,6 +7,7 @@ import {
   useInView,
 } from "framer-motion";
 import { skillCategories } from '../data/portfolioData';
+import { fadeUp, stagger, inViewOptions } from '../utils/motionVariants';
 import {
   SiCanva,
   SiDjango,
@@ -135,6 +136,11 @@ const skillVisuals = {
 };
 
 const SkillsSection = () => {
+  const headerRef = useRef(null);
+  const bodyRef   = useRef(null);
+  const headerInView = useInView(headerRef, inViewOptions);
+  const bodyInView   = useInView(bodyRef,   inViewOptions);
+
   const renderCategory = (category) => (
     <div key={category.title} className="skills-category">
       <h3 className="skills-category-title">{category.title}</h3>
