@@ -177,8 +177,8 @@ const SkillsSection = () => {
         initial="hidden"
         animate={bodyInView ? 'visible' : 'hidden'}
       >
-        {skillCategories.map((category, index) =>
-          renderCategory(category.title, category.items, index > 0 ? 'skills-group-secondary' : '')
+        {skillCategories.map((category) =>
+          renderCategory(category)
         )}
       </motion.div>
     </section>
