@@ -134,9 +134,85 @@ const skillVisuals = {
   'Git/GitHub':      { icon: SiGithub,         color: '#ffffff', desc: 'Version control + hosting combo — the backbone of collaborative software development.' },
 };
 
+/* ── SkillPill: individual badge + portal tooltip ─────────────────── */
+function SkillPill({ skill }) {
+  const pillRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+
+  const visual = skillVisuals[skill] ?? { icon: FaCode, color: '#aab2c5', desc: '' };
+  const Icon = visual.icon;
+
+  const updatePos = () => {
+    if (!pillRef.current) return;
+    const rect = pillRef.current.getBoundingClientRect();
+    setPos({ x: rect.left + rect.width / 2, y: rect.top });
+  };
+
+  const handleEnter = () => { updatePos(); setHovered(true); };
+  const handleLeave = () => setHovered(false);
+
+  useEffect(() => {
+    if (!hovered) return;
+    window.addEventListener('scroll', updatePos, { passive: true });
+    window.addEventListener('resize', updatePos);
+    return () => {
+      window.removeEventListener('scroll', updatePos);
+      window.removeEventListener('resize', updatePos);
+    };
+  }, [hovered]);
+
+  return (
+    <div
+      ref={pillRef}
+      className="skill-pill"
+      style={{ '--skill-color': visual.color }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+    >
+      <span className="skill-pill-shimmer" aria-hidden="true" />
+      <Icon className="skill-icon" aria-hidden="true" />
+      <span>{skill}</span>
+
+      <AnimatePresence>
+        {hovered && createPortal(
+          <div
+            style={{
+              position: 'fixed',
+              left: pos.x,
+              top: pos.y,
+              transform: 'translate(-50%, calc(-100% - 10px))',
+              zIndex: 9999,
+              pointerEvents: 'none',
+            }}
+          >
+            <motion.div
+              className="skill-tooltip"
+              style={{ '--tip-color': visual.color }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+            >
+              <div className="skill-tooltip-icon-wrap">
+                <Icon className="skill-tooltip-icon" aria-hidden="true" />
+              </div>
+              <div className="skill-tooltip-body">
+                <span className="skill-tooltip-name">{skill}</span>
+                <p className="skill-tooltip-desc">{visual.desc}</p>
+              </div>
+            </motion.div>
+          </div>,
+          document.body
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 const SkillsSection = () => {
-  const headerRef = useRef(null);
-  const bodyRef   = useRef(null);
+  const headerRef    = useRef(null);
+  const bodyRef      = useRef(null);
   const headerInView = useInView(headerRef, inViewOptions);
   const bodyInView   = useInView(bodyRef,   inViewOptions);
 
