@@ -58,7 +58,6 @@ import {
   FaTerminal,
   FaWindows
 } from 'react-icons/fa6';
-import { getSkillVisual } from "../utils/motionVariants";
 
 const skillsContainerVariants = {
   hidden: {
