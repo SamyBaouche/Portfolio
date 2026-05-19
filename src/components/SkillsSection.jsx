@@ -226,7 +226,7 @@ const SkillsSection = () => {
         whileInView="visible"
         viewport={{ once: false }}
       >
-        {category.skills.map((skill) => (
+        {category.items.map((skill) => (
           <motion.div key={skill} variants={skillBadgeVariants}>
             <SkillPill skill={skill} />
           </motion.div>
