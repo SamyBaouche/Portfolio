@@ -293,6 +293,13 @@ main { position:relative; z-index:2; }
   opacity:0.88;
   letter-spacing:-0.04em;
   line-height:0.9;
+  /* Prevent this decorative element from creating a horizontal scrollbar */
+  pointer-events: none;
+  user-select: none;
+}
+/* Clip the hero area so the overflowing code tag never creates a scrollbar */
+.hero.section {
+  overflow-x: clip;
 }
 .hero-role {
   font-family:'Geist Mono',monospace;
@@ -964,9 +971,35 @@ main { position:relative; z-index:2; }
 @media (max-width:1100px) {
   .project-main { grid-template-columns:1fr; gap:16px; }
 }
+
+/* ── Tablet (≤ 860px) ────────────────────────────────────── */
+@media (max-width:860px) {
+  .hero-code-tag {
+    /* prevent horizontal overflow — anchor it inside the name flow */
+    position: relative;
+    right: auto;
+    bottom: auto;
+    display: block;
+    font-size: clamp(2rem, 10vw, 5rem);
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .pc-screenshot-wrap {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+/* ── Mobile nav (≤ 768px) ───────────────────────────────── */
 @media (max-width:768px) {
   .navbar-wrap { top:10px; }
-  .navbar { min-width:0; border-radius:14px; padding:4px 5px; }
+  /* Reset fixed min-width so navbar doesn't overflow on small screens */
+  .navbar {
+    min-width: 0;
+    width: auto;
+    border-radius:14px;
+    padding:4px 5px;
+  }
   .nav-links.desktop-nav { display:none; }
   .nav-pill { display:none; }
   .brand { display:block; }
@@ -977,22 +1010,59 @@ main { position:relative; z-index:2; }
   .hero-actions .btn,.contact-actions .btn { justify-content:center; }
   .experience-list { padding-left:22px; }
   .experience-item::before { left:-26px; }
+  /* Contact top row stacks on tablet */
+  .contact-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
+
+/* ── Small mobile (≤ 620px) ─────────────────────────────── */
 @media (max-width:620px) {
   .container { width:94vw; }
+  /* Hero */
   .hero-name { font-size:clamp(2.6rem,14vw,4rem); }
+  .hero-code-tag { font-size: clamp(1.8rem, 12vw, 3.5rem); }
   .about-blurb { max-width:100%; }
-  .project-card { padding:1.4rem; }
-  .chip { font-size:0.69rem; padding:4px 9px; }
-  .skill-pill { font-size:0.77rem; padding:7px 12px; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { justify-content: center; }
+  /* Sections */
   .section-title { font-size:clamp(1.6rem,7vw,2.2rem); }
+  /* Projects */
+  .project-card { padding:1.4rem; }
+  .pc-name { font-size:1.4rem; }
+  .pc-screenshot-wrap { height: 180px; }
+  .pc-has-image .pc-inner { gap: 1.25rem; }
+  .pc-features { gap: 6px; }
+  /* Skills */
+  .skill-pill { font-size:0.77rem; padding:7px 12px; }
+  .skills-category-grid { gap: 6px; }
+  /* Chips */
+  .chip { font-size:0.69rem; padding:4px 9px; }
+  /* Experience */
+  .experience-icon { width: 38px; height: 38px; }
+  .experience-item { padding: 14px 16px; gap: 12px; }
+  /* Contact */
+  .contact-socials { gap: 8px; }
+  .email-link { font-size: 0.78rem; }
 }
+
+/* ── Extra-small mobile (≤ 420px) ───────────────────────── */
 @media (max-width:420px) {
   .hero.section { padding-top:6.5rem; }
   .section { padding:4rem 0 3rem; }
   .experience-list { padding-left:18px; }
   .experience-item::before { left:-22px; }
+  .hero-name { font-size:clamp(2.2rem,15vw,3.2rem); }
+  .hero-code-tag { font-size: clamp(1.6rem,13vw,2.8rem); }
+  .skill-pill { font-size:0.72rem; padding:6px 10px; }
+  .pc-screenshot-wrap { height: 160px; }
+  /* Stack contact socials vertically */
+  .contact-socials { flex-direction: column; align-items: stretch; }
+  .contact-socials .btn { justify-content: center; }
 }
+
+/* ── Touch devices: disable hover transforms ─────────────── */
 @media (hover:none) and (pointer:coarse) {
   .project-card:hover,.skill-pill:hover,.experience-item:hover,
   .contact-card:hover,.btn:hover,.chip:hover { transform:none !important; box-shadow:inherit !important; }
