@@ -10,45 +10,59 @@ const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 function ContactSection() {
-  const ref     = useRef(null);
-  const formRef = useRef(null);
+  const ref      = useRef(null);
+  const formRef  = useRef(null);
   const isInView = useInView(ref, inViewOptions);
 
-  const [form, setForm]     = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle');
+  const [form, setForm]       = useState({ name: '', email: '', message: '' });
+  const [status, setStatus]   = useState('idle');
+  const [errMsg, setErrMsg]   = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
+
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      setErrMsg('EmailJS keys are missing — check environment variables.');
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
+      setTimeout(() => setStatus('idle'), 6000);
       return;
     }
+
     setStatus('sending');
+    setErrMsg('');
+
     const timeout = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), 8000)
+      setTimeout(() => reject(new Error('Request timed out after 8s')), 8000)
     );
+
     try {
       await Promise.race([
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-          from_name:  form.name,
-          from_email: form.email,
-          message:    form.message,
-          to_email:   contact.email,
-        }, PUBLIC_KEY),
+        emailjs.send(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          {
+            from_name:  form.name,
+            from_email: form.email,
+            message:    form.message,
+            to_email:   contact.email,
+          },
+          PUBLIC_KEY
+        ),
         timeout,
       ]);
       setStatus('success');
       setForm({ name: '', email: '', message: '' });
       setTimeout(() => setStatus('idle'), 6000);
-    } catch {
+    } catch (err) {
+      console.error('[EmailJS error]', err);
+      const msg = err?.text || err?.message || String(err);
+      setErrMsg(msg);
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
+      setTimeout(() => setStatus('idle'), 8000);
     }
   };
 
@@ -121,7 +135,7 @@ function ContactSection() {
             )}
             {status === 'error' && (
               <span className="cf-status cf-status--err">
-                <AlertCircle size={15} /> Something went wrong — try again or email me directly.
+                <AlertCircle size={15} /> {errMsg || 'Something went wrong — try again.'}
               </span>
             )}
             <button type="submit" className="btn btn-primary cf-submit"
